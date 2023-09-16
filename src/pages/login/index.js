@@ -53,7 +53,7 @@ export const LoginPage = () => {
           letterSpacing: 2.5,
         }}
       >
-        SWP Projects On-going Report
+        JAMA Decor
       </Title>
       <LoginFormWrapper>
         <Card bordered={false}>

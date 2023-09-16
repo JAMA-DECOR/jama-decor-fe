@@ -76,7 +76,7 @@ export const Dashboard = () => {
 										},
 									}}
 								/>
-								<Title level={3}>SWP Projects On-going Report System</Title>
+								<Title level={3}>JAMA Decor</Title>
 							</div>
 						)}
 						<Outlet />

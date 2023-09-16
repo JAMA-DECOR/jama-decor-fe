@@ -24,7 +24,7 @@ export const AppHeader = () => {
         className="cursor-pointer"
         onClick={() => navigate(routes.dashboard.root)}
       >
-        SWP Projects On-going Report System
+        JAMA Decor
       </Title>
       <ProfileBar />
     </Header>

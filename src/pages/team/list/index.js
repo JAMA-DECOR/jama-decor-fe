@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import TeamApi from "../../../apis/team";
 import { ProjectTeamList } from "./components/ProjectTeamList";
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 export const TeamListPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();

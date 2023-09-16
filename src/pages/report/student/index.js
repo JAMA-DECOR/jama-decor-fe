@@ -10,7 +10,7 @@ import { SubmitReportDrawer } from "./components/SubmitReportDrawer";
 import { TeamProvider } from "../../../providers/team";
 import { formatDate } from "../../../utils";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 const StudentTeamReportPage = () => {
 	const { id } = useParams();

@@ -25,11 +25,12 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "prettier": "3.0.3",
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
     "build": "react-scripts build",
-    "dev": "react-scripts test --watchAll",
+    "dev": "react-scripts start",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test --watchAll"

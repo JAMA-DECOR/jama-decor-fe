@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TeamContext } from "../../../../providers/team";
-import { Card, Collapse } from "antd";
+import { Collapse } from "antd";
 import { TextTile } from "../../../../components/TextTile";
 import { RawHtml } from "../../../../components/RawHtml";
 

@@ -10,7 +10,7 @@ import { ReportSection } from "../components/ReportSection";
 import { TeamBasicInfo } from "../../team/detail/components/TeamBasicInfo";
 import { ReportDetailDrawer } from "../student/components/ReportDetailDrawer";
 
-const { Text, Title } = Typography;
+const {  Title } = Typography;
 
 const ProjectReportDetailPage = () => {
 	const { id } = useParams();

@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import SemesterApi from "../../../apis/semester";
-import { useNavigate, useParams } from "react-router-dom";
-import { Button, Card, Collapse, Row, Spin, TimePicker, Typography } from "antd";
-import { RawHtml } from "../../../components/RawHtml";
+import { useParams } from "react-router-dom";
+import { Card, Collapse, Typography } from "antd";
 import moment from "moment";
-import { ArrowRight } from "@icon-park/react";
-const { Text, Title } = Typography;
+const { Text, } = Typography;
 
 const SemesterDetailPage = () => {
 	const { id } = useParams();
-	const navigate = useNavigate();
 	const [semester, setSemesters] = useState([]);
-	const [classes, setClasses] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	const startTime = moment(semester.startTime);
@@ -27,15 +23,16 @@ const SemesterDetailPage = () => {
 		setSemesters(data);
 		console.log("Data: ", data);
 		setLoading(false);
+		console.log(loading);
 	};
 
 	useEffect(() => {
 		getSemester();
-	}, []);
+	}, [id]);
 
 	return (
 		<Card
-		
+
 			title={`Học kỳ: ${semester.name}`}
 		>
 			<Collapse
@@ -46,7 +43,7 @@ const SemesterDetailPage = () => {
 							<div>
 								<div>
 									<Text strong>Giáo viên hướng dẫn: </Text>
-									<Text>{}</Text>
+									<Text>{ }</Text>
 								</div>
 								<div>
 									<Text strong>Thời gian bắt đầu: </Text>

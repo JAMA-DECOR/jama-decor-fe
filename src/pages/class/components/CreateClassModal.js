@@ -46,7 +46,8 @@ export const CreateClassModal = ({ open, onCancel, onSuccess }) => {
 		getCourses();
 		getSemester();
 		getTeacher();
-	}, []);
+		console.log(user);
+	}, [user]);
 
 	const courseOptions = courses.map((e) => {
 		return {

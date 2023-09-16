@@ -11,11 +11,12 @@ const Container = styled.div`
   position: fixed;
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(to bottom right, #08203e, #557c93);
+  // background-image: linear-gradient(to bottom right, #08203e, #557c93);
+  background-color: #eee;
 `;
 
 const LoginFormWrapper = styled.div`
-  width: 40%;
+  width: clamp(20rem, min(30%, 30vw), 36rem);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -49,15 +50,15 @@ export const LoginPage = () => {
         className="text-center"
         style={{
           marginTop: 50,
-          color: "white",
+          color: "#333",
           letterSpacing: 2.5,
         }}
       >
         JAMA Decor
       </Title>
       <LoginFormWrapper>
-        <Card bordered={false}>
-          <Title level={2} className="text-center">
+        <Card bordered={true}>
+          <Title level={2} className="text-center text-[#333]">
             Đăng nhập
           </Title>
           <Form

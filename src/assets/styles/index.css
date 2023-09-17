@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import url(/src/assets/styles/tailwind.css);
 @import url(/src/assets/styles/layout.css);
 
 html,
@@ -26,4 +23,15 @@ body {
 
 a {
   text-decoration: none;
+}
+a,
+i,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #333333;
 }

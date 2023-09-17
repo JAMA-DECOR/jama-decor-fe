@@ -20,6 +20,7 @@ import SemesterDetailPage from "../pages/semester/detail";
 import TeamDetailPage from "../pages/team/detail";
 import StudentTeamReportPage from "../pages/report/student";
 import ProjectReportDetailPage from "../pages/report/detail";
+import { HomePage } from "../pages/home";
 
 export const router = createBrowserRouter([
 	{
@@ -40,10 +41,13 @@ export const router = createBrowserRouter([
 				element: <Dashboard />,
 				children: [
 					{
+						path: routes.dashboard.home,
+						element: <HomePage />,
+					},
+					{
 						path: routes.dashboard.accounts,
 						element: <AccountListPage />,
 					},
-
 					{
 						path: routes.dashboard.courses,
 						element: <CourseListPage />,

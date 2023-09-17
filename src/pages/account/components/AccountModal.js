@@ -6,11 +6,11 @@ import { roles } from "../../../constants/app";
 export const AccountModal = ({ open, onCancel, account, title }) => {
 	const roleOptions = [
 		{
-			value: roles.STUDENT,
+			value: roles.WORKER,
 			label: "Sinh viên",
 		},
 		{
-			value: roles.TEACHER,
+			value: roles.FACTORY,
 			label: "Giáo viên",
 		},
 	];
@@ -44,7 +44,7 @@ export const AccountModal = ({ open, onCancel, account, title }) => {
 					<Input placeholder="Nhập họ tên..." />
 				</Form.Item>
 				<Form.Item name="role" label="Vai trò">
-					<Select defaultValue={roles.STUDENT} options={roleOptions} />
+					<Select defaultValue={roles.WORKER} options={roleOptions} />
 				</Form.Item>
 				<Form.Item name="status" label="Trạng thái">
 					<Select defaultValue={true} options={statusOptions} />

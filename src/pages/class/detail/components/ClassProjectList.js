@@ -136,7 +136,7 @@ export const ClassProjectList = ({ onViewDescription }) => {
 							)}
 						</Col>
 						<Col>
-							{role === roles.TEACHER && (
+							{role === roles.FACTORY && (
 								<Dropdown menu={{ items: teacherActionItems(record) }}>
 									<Button icon={<More />} className="flex-center" />
 								</Dropdown>

@@ -62,7 +62,7 @@ const ClassListPage = () => {
 			keyword,
 			courseId,
 			undefined,
-			role === roles.TEACHER ? user?.userId : undefined
+			role === roles.FACTORY ? user?.userId : undefined
 		);
 		if (enrolled !== undefined) {
 			data = data?.filter((e) => e.enrolled === enrolled);
@@ -127,7 +127,7 @@ const ClassListPage = () => {
 								onChange={handleChangeCourse}
 								onClear={handleClearCourse}
 							/>
-							{role === roles.STUDENT && (
+							{role === roles.WORKER && (
 								<>
 									<span className="mr-2 ml-4">Trạng thái:</span>
 									<Select

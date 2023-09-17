@@ -104,7 +104,7 @@ export const ReportDetailDrawer = ({
 					<div className="mt-1">{report?.todoReport ?? "-"}</div>
 				</TextTile>
 				<Divider />
-				{role === roles.STUDENT && (
+				{role === roles.WORKER && (
 					<Collapse
 						ghost
 						items={[
@@ -121,7 +121,7 @@ export const ReportDetailDrawer = ({
 						]}
 					/>
 				)}
-				{role === roles.TEACHER && (
+				{role === roles.FACTORY && (
 					<Form
 						ref={formRef}
 						layout="vertical"

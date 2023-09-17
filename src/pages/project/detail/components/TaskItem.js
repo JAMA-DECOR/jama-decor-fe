@@ -36,7 +36,7 @@ export const TaskItem = ({
 						/>
 					</div>
 				</Col>
-				{role === roles.STUDENT && (
+				{role === roles.WORKER && (
 					<Col>
 						<Row gutter={8}>
 							<Col>

@@ -63,7 +63,7 @@ export const MemberTaskList = ({
 						/>
 					);
 				})}
-				{role === roles.STUDENT && (
+				{role === roles.WORKER && (
 					<Dropdown trigger={["click"]} menu={{ items: memberItems }}>
 						<Tag style={tagPlusStyle}>
 							<Plus /> <span>Thêm thành viên</span>

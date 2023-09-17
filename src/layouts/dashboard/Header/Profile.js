@@ -25,9 +25,9 @@ export const ProfileBar = () => {
 		switch (user?.role) {
 			case roles.ADMIN:
 				return "Admin";
-			case roles.TEACHER:
+			case roles.FACTORY:
 				return "Giáo viên";
-			case roles.STUDENT:
+			case roles.WORKER:
 				return "Sinh viên";
 			default:
 				return "";
@@ -50,13 +50,13 @@ export const ProfileBar = () => {
 	];
 
 	return (
-		<Container>
+		<Container theme="light">
 			<Dropdown
 				menu={{
 					items,
 				}}
 			>
-				<span className="cursor-pointer">
+				<span className="cursor-pointer text-[#666]">
 					{user?.fullName} - {getRoleName()}
 					<Down />
 				</span>

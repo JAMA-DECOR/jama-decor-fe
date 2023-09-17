@@ -2,8 +2,9 @@ import { TaskStatus } from "./enum";
 
 export const roles = {
 	ADMIN: "Admin",
-	STUDENT: "Student",
-	TEACHER: "Teacher",
+	FACTORY: "Factory",
+	LEADER: "Leader",
+	WORKER: "Worker",
 };
 
 export const ALL_PERMISSIONS = {
@@ -104,29 +105,7 @@ export const USER_PERMISSIONS = {
 		ALL_PERMISSIONS.semester.update,
 		ALL_PERMISSIONS.semester.delete,
 	],
-	[roles.STUDENT]: [
-		// CLASS
-		ALL_PERMISSIONS.class.sider,
-		ALL_PERMISSIONS.class.view,
-		ALL_PERMISSIONS.class.enroll,
-		// COURSE
-		ALL_PERMISSIONS.course.view,
-		// PROJECT
-		ALL_PERMISSIONS.project.sider,
-		ALL_PERMISSIONS.project.view,
-		//TEAM
-		ALL_PERMISSIONS.team.sider,
-		ALL_PERMISSIONS.team.view,
-		ALL_PERMISSIONS.team.create,
-		ALL_PERMISSIONS.team.update,
-		ALL_PERMISSIONS.team.delete,
-		// TASK
-		ALL_PERMISSIONS.task.view,
-		ALL_PERMISSIONS.task.create,
-		ALL_PERMISSIONS.task.update,
-		ALL_PERMISSIONS.task.delete,
-	],
-	[roles.TEACHER]: [
+	[roles.FACTORY]: [
 		// CLASS
 		ALL_PERMISSIONS.class.sider,
 		ALL_PERMISSIONS.class.view,
@@ -147,6 +126,28 @@ export const USER_PERMISSIONS = {
 		// REPORT
 		ALL_PERMISSIONS.report.sider,
 		ALL_PERMISSIONS.report.view,
+	],
+	[roles.WORKER]: [
+		// CLASS
+		ALL_PERMISSIONS.class.sider,
+		ALL_PERMISSIONS.class.view,
+		ALL_PERMISSIONS.class.enroll,
+		// COURSE
+		ALL_PERMISSIONS.course.view,
+		// PROJECT
+		ALL_PERMISSIONS.project.sider,
+		ALL_PERMISSIONS.project.view,
+		//TEAM
+		ALL_PERMISSIONS.team.sider,
+		ALL_PERMISSIONS.team.view,
+		ALL_PERMISSIONS.team.create,
+		ALL_PERMISSIONS.team.update,
+		ALL_PERMISSIONS.team.delete,
+		// TASK
+		ALL_PERMISSIONS.task.view,
+		ALL_PERMISSIONS.task.create,
+		ALL_PERMISSIONS.task.update,
+		ALL_PERMISSIONS.task.delete,
 	],
 };
 

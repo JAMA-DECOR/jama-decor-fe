@@ -14,6 +14,7 @@ const routes = {
 		report: "team-report",
 		semester: "semester",
 		studentReport: "student-report",
+		statistics: "statistics",
 	},
 };
 

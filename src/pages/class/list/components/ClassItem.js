@@ -48,7 +48,7 @@ export const ClassItem = ({ data, onDelete }) => {
 				</Text>
 			}
 			extra={
-				role === roles.STUDENT && (
+				role === roles.WORKER && (
 					<Tag color={data.enrolled ? "blue-inverse" : "default"}>
 						{data.enrolled ? "Đã tham gia" : "Chưa tham gia"}
 					</Tag>
@@ -65,7 +65,7 @@ export const ClassItem = ({ data, onDelete }) => {
 					},
 				]}
 			/>
-			{role === roles.STUDENT && (
+			{role === roles.WORKER && (
 				<Descriptions
 					items={[
 						{

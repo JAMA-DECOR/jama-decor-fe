@@ -116,7 +116,7 @@ const AccountList = () => {
 						color={
 							role === roles.ADMIN
 								? "blue"
-								: role === roles.STUDENT
+								: role === roles.WORKER
 								? "cyan"
 								: "purple"
 						}
@@ -135,12 +135,12 @@ const AccountList = () => {
 						value: roles.ADMIN,
 					},
 					{
-						label: getRoleName(roles.STUDENT),
-						value: roles.STUDENT,
+						label: getRoleName(roles.WORKER),
+						value: roles.WORKER,
 					},
 					{
-						label: getRoleName(roles.TEACHER),
-						value: roles.TEACHER,
+						label: getRoleName(roles.FACTORY),
+						value: roles.FACTORY,
 					},
 				],
 			},

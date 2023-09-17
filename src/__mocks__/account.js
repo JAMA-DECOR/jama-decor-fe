@@ -4,7 +4,7 @@ export const mockAccounts = [
 	{
 		id: "1",
 		fullName: "Nguyen Van A",
-		email: "abc@gmail.com",
+		email: "admin@gmail.com",
 		password: '123456',
 		role: roles.ADMIN,
 		active: true,
@@ -12,18 +12,27 @@ export const mockAccounts = [
 	{
 		id: "2",
 		fullName: "Nguyen Van B",
-		email: "def@gmail.com",
+		email: "factory@gmail.com",
 		password: '123456',
-		role: roles.TEACHER,
+		role: roles.FACTORY,
 		active: true,
 	},
 	{
 		id: "3",
 		fullName: "Nguyen Van C",
-		email: "xyz@gmail.com",
+		email: "leader@gmail.com",
 		password: '123456',
-		role: roles.STUDENT,
-		active: false,
+		role: roles.LEADER,
+		active: true,
+	},
+	
+	{
+		id: "3",
+		fullName: "Nguyen Van C",
+		email: "worker@gmail.com",
+		password: '123456',
+		role: roles.WORKER,
+		active: true,
 	},
 ];
 
@@ -32,7 +41,7 @@ export const mockStudents = [
 		id: "3",
 		fullName: "Nguyễn Thanh Huyền",
 		email: "huyenthanh@fpt.edu.com",
-		role: roles.STUDENT,
+		role: roles.WORKER,
 		active: true,
 		team: {
 			name: "Nhóm 1",
@@ -50,14 +59,14 @@ export const mockStudents = [
 		id: "4",
 		fullName: "Trần Vĩnh Phát",
 		email: "phatvinh@fpt.edu.com",
-		role: roles.STUDENT,
+		role: roles.WORKER,
 		active: true,
 	},
 	{
 		id: "5",
 		fullName: "Lê Văn Vũ",
 		email: "vule@fpt.edu.com",
-		role: roles.STUDENT,
+		role: roles.WORKER,
 		active: true,
 	},
 ];

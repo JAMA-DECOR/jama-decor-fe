@@ -51,7 +51,7 @@ export const TeamRequestList = ({ teamRequests, onClickItem, reload }) => {
 	};
 
 	const getActionItems = (record) => {
-		if (role === roles.TEACHER) {
+		if (role === roles.FACTORY) {
 			return [
 				{
 					label: "Duyệt yêu cầu",
@@ -68,7 +68,7 @@ export const TeamRequestList = ({ teamRequests, onClickItem, reload }) => {
 		}
 
 		if (
-			role === roles.STUDENT &&
+			role === roles.WORKER &&
 			record?.status === TeamRequestStatus.pending
 		) {
 			return [

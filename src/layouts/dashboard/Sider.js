@@ -7,17 +7,20 @@ import {
 	Hourglass,
 	EveryUser,
 } from "@icon-park/react";
-import { Menu } from "antd";
+import { Menu, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Header } from "antd/es/layout/layout";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import routes from "../../constants/routes";
 import { usePermissions } from "../../hooks/permission";
 import { ALL_PERMISSIONS } from "../../constants/app";
 import config from "../../constants/config";
 
+const { Title } = Typography;
+
 export const AppSider = () => {
+	const navigate = useNavigate();
 	const location = useLocation();
 	const permissions = usePermissions();
 
@@ -103,6 +106,7 @@ export const AppSider = () => {
 	return (
 		<Sider
 			width={config.SIDER_WIDTH}
+			theme="light"
 			className="pb-4"
 			style={{
 				overflow: "auto",
@@ -111,16 +115,25 @@ export const AppSider = () => {
 				left: 0,
 				top: 0,
 				bottom: 0,
+				borderRight: '1px solid #eee'
 			}}
 		>
-			<Header className="flex-center">
-				<Link to={routes.dashboard.root}>
-					<Dashboard size={"40"} style={{ color: "white", fontSize: 50 }} />
+			<Header className="flex-center bg-white">
+				<Link to={routes.dashboard.root} style={{ textDecoration: "none" }}>
+					<Title
+						level={4}
+						style={{ color: "#666", marginTop: '0.5rem' }}
+						onClick={() => navigate(routes.dashboard.root)}
+					>
+						JAMA Decor
+					</Title>
+					{/* <Dashboard size={"40"} style={{ color: "#333", fontSize: 50 }} /> */}
 				</Link>
 			</Header>
 			<Menu
-				theme="dark"
+				theme="light"
 				mode="inline"
+				style={{ border: "none" }}
 				defaultSelectedKeys={[itemKeys.ACCOUNT]}
 				items={items}
 				selectedKeys={[getSelectedKey()]}

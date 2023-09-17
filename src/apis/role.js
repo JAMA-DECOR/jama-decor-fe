@@ -12,10 +12,13 @@ const getAllRoles = async () => {
 				name: roles.ADMIN
 			},
 			{
-				name: roles.TEACHER
+				name: roles.FACTORY
 			},
 			{
-				name: roles.STUDENT
+				name: roles.LEADER
+			},
+			{
+				name: roles.WORKER
 			},
 		]
 	} catch (error) {

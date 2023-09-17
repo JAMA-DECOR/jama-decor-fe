@@ -10,9 +10,9 @@ export const getRoleName = (role) => {
 	switch (role) {
 		case roles.ADMIN:
 			return "Admin";
-		case roles.STUDENT:
+		case roles.WORKER:
 			return "Sinh viên";
-		case roles.TEACHER:
+		case roles.FACTORY:
 			return "Giáo viên";
 		default:
 			return "";

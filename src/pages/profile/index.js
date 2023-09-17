@@ -24,7 +24,7 @@ const ProfilePage = () => {
 					mssv: user?.mssv,
 				}}
 			>
-				{role === roles.STUDENT && (
+				{role === roles.WORKER && (
 					<Form.Item name="mssv" label="Mã số sinh viên">
 						<Input placeholder="MSSV..." disabled readOnly />
 					</Form.Item>

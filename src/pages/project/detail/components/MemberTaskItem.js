@@ -9,7 +9,7 @@ export const MemberTaskItem = ({ member, onRemove }) => {
 	return (
 		<Tag
 			color="geekblue"
-			closable={role === roles.STUDENT}
+			closable={role === roles.WORKER}
 			onClose={(e) => {
 				e.stopPropagation();
 				onRemove && onRemove(member);

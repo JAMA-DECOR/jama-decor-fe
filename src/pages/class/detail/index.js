@@ -114,7 +114,7 @@ const ClassDetailPage = () => {
 
 	const handleViewProjectDescription = (item) => {
 		projectRef.current = item;
-		if (role === roles.TEACHER) {
+		if (role === roles.FACTORY) {
 			setShowUpdateProjectModal(true);
 		} else {
 			setShowProjectDescModal(true);
@@ -161,20 +161,20 @@ const ClassDetailPage = () => {
 					}
 				>
 					<ClassBasicInfo />
-					{role === roles.TEACHER && (
+					{role === roles.FACTORY && (
 						<Card title="Thiết lập thời hạn" className="mb-2">
 							<ClassTeamRegisterDeadline />
 							<ClassTeamReportDeadline />
 						</Card>
 					)}
-					{(data?.enrolled || role === roles.TEACHER) && (
+					{(data?.enrolled || role === roles.FACTORY) && (
 						<ClassProjectList
 							onViewDescription={handleViewProjectDescription}
 						/>
 					)}
 
-					{role === roles.TEACHER && <ClassTeamList />}
-					{role === roles.TEACHER && <ClassStudentList />}
+					{role === roles.FACTORY && <ClassTeamList />}
+					{role === roles.FACTORY && <ClassStudentList />}
 					<UpdateEnrollKeyModal
 						open={showUpdateEnrollKeyModal}
 						onCancel={() => setShowUpdateEnrollKeyModal(false)}

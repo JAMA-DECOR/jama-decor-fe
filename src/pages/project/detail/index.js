@@ -153,7 +153,7 @@ const ProjectDetailPage = () => {
 							</span>
 						}
 					>
-						{role === roles.TEACHER && (
+						{role === roles.FACTORY && (
 							<div className="mt-4">
 								<ProjectStudentList />
 								<Divider />
@@ -175,7 +175,7 @@ const ProjectDetailPage = () => {
 							title="Công việc cần làm"
 							tasks={newTasks}
 							action={
-								role === roles.STUDENT && (
+								role === roles.WORKER && (
 									<Button
 										type="primary"
 										icon={<Add />}

@@ -51,7 +51,7 @@ export const ClassList = ({ classes, onDelete }) => {
 		},
 	];
 
-	if (role === roles.STUDENT || role === roles.ADMIN) {
+	if (role === roles.WORKER || role === roles.ADMIN) {
 		columns.push({
 			title: "Giáo viên hướng dẫn",
 			dataIndex: "teacherName",
@@ -59,7 +59,7 @@ export const ClassList = ({ classes, onDelete }) => {
 			ellipsis: true,
 		});
 	}
-	if (role === roles.STUDENT) {
+	if (role === roles.WORKER) {
 		columns.push({
 			title: "Trạng thái",
 			dataIndex: "enrolled",
@@ -88,7 +88,7 @@ export const ClassList = ({ classes, onDelete }) => {
 
 	return (
 		<>
-			{role === roles.TEACHER && <Title level={5}>Lớp học của tôi</Title>}
+			{role === roles.FACTORY && <Title level={5}>Lớp học của tôi</Title>}
 			<Table
 				dataSource={classes}
 				columns={columns}

@@ -16,16 +16,19 @@ export const AppHeader = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+				borderBottom: '1px solid #eee',
+        backgroundColor: "white"
       }}
     >
-      <Title
+      {/* <Title
         style={{ color: "white" }}
         level={4}
         className="cursor-pointer"
         onClick={() => navigate(routes.dashboard.root)}
       >
         JAMA Decor
-      </Title>
+      </Title> */}
+      <div></div>
       <ProfileBar />
     </Header>
   );

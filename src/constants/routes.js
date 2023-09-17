@@ -4,6 +4,7 @@ const routes = {
 	register: "/register",
 	dashboard: {
 		root: "/dashboard",
+		home: "home",
 		courses: "courses",
 		classes: "classes",
 		accounts: "accounts",

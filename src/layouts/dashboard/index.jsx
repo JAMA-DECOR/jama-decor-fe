@@ -31,12 +31,12 @@ export const Dashboard = () => {
 				document.title = `${getRoleName(user.role)} | Dashboard`;
 				setUser(user);
 				if (location.pathname === routes.dashboard.root) {
-					var path = routes.dashboard.classes;
-					if (user.role === roles.ADMIN) {
-						path = routes.dashboard.accounts;
-					}
-
-					navigate(path);
+					// var path = routes.dashboard.classes;
+					// if (user.role === roles.ADMIN) {
+					// 	path = routes.dashboard.accounts;
+					// }
+					// navigate(path);
+					navigate(routes.dashboard.home);
 				}
 			})
 			.catch((error) => {

@@ -127,6 +127,28 @@ export const USER_PERMISSIONS = {
 		ALL_PERMISSIONS.report.sider,
 		ALL_PERMISSIONS.report.view,
 	],
+	[roles.LEADER]: [
+		// CLASS
+		ALL_PERMISSIONS.class.sider,
+		ALL_PERMISSIONS.class.view,
+		ALL_PERMISSIONS.class.update,
+		ALL_PERMISSIONS.class.delete,
+		ALL_PERMISSIONS.class.settings,
+		// COURSE
+		ALL_PERMISSIONS.course.view,
+		// PROJECT
+		ALL_PERMISSIONS.project.view,
+		ALL_PERMISSIONS.project.create,
+		ALL_PERMISSIONS.project.update,
+		ALL_PERMISSIONS.project.delete,
+		//TEAM
+		ALL_PERMISSIONS.team.view,
+		//TASK
+		ALL_PERMISSIONS.task.view,
+		// REPORT
+		ALL_PERMISSIONS.report.sider,
+		ALL_PERMISSIONS.report.view,
+	],
 	[roles.WORKER]: [
 		// CLASS
 		ALL_PERMISSIONS.class.sider,

@@ -7,7 +7,7 @@ const PageNotFound = () => {
 
 	return (
 		<Result
-			status="404"
+			status="500"
 			title="Lỗi mất rồi!"
 			subTitle="Có lỗi đã xảy ra"
 			extra={

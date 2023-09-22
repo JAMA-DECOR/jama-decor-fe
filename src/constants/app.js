@@ -1,4 +1,9 @@
 import { TaskStatus } from "./enum";
+import logoUrlBig from '../assets/images/logo.png';
+import logoUrlMedium from '../assets/images/logo-256.png';
+import logoUrl from '../assets/images/logo-128.png';
+
+export { logoUrlBig, logoUrlMedium, logoUrl };
 
 export const roles = {
 	ADMIN: "Admin",

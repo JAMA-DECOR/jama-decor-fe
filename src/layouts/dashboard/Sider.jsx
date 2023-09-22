@@ -1,18 +1,17 @@
 import { DegreeHat, User, Classroom, Analysis, Hourglass, EveryUser } from "@icon-park/react";
 import { Menu, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { Header } from "antd/es/layout/layout";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import routes from "../../constants/routes";
 import { usePermissions } from "../../hooks/permission";
-import { ALL_PERMISSIONS } from "../../constants/app";
-import config from "../../constants/config";
-import { DashboardOutlined } from "@ant-design/icons";
+import { ALL_PERMISSIONS, logoUrl } from "../../constants/app";
+import { DashboardOutlined, FileDoneOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
 export const AppSider = () => {
+  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const permissions = usePermissions();
@@ -27,11 +26,8 @@ export const AppSider = () => {
   const itemKeys = {
     DASHBOARD: "DASHBOARD",
     ACCOUNT: "MANAGE_ACCOUNT",
-    COURSE: "MANAGE_COURSE",
-    TEAM: "MANAGE_TEAM",
-    CLASS: "MANAGE_CLASS",
-    REPORT: "MANAGE_REPORT",
-    SEMESTER: "MANAGE_SEMESTER",
+    ORDER: "MANAGE_ORDER",
+    QUOTE: "MANAGE_QUOTE",
   };
   const iconSize = 20;
   const items = [
@@ -39,6 +35,21 @@ export const AppSider = () => {
       key: itemKeys.DASHBOARD,
       icon: <DashboardOutlined size={iconSize} />,
       label: <Link to={routes.dashboard.home}>Bảng điều khiển</Link>,
+    },
+    {
+      key: itemKeys.ACCOUNT,
+      icon: <UserOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.accounts}>Quản lý tài khoản</Link>,
+    },
+    {
+      key: itemKeys.ORDER,
+      icon: <FormOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Đơn đặt hàng</Link>,
+    },
+    {
+      key: itemKeys.QUOTE,
+      icon: <FileDoneOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
     },
     // canViewAccount && {
     //   key: itemKeys.ACCOUNT,
@@ -84,20 +95,20 @@ export const AppSider = () => {
         return itemKeys.DASHBOARD;
       case routes.dashboard.accounts:
         return itemKeys.ACCOUNT;
-      case routes.dashboard.courses:
-        return itemKeys.COURSE;
-      case routes.dashboard.projects:
-        return itemKeys.PROJECT;
-      case routes.dashboard.classes:
-        return itemKeys.CLASS;
-      case routes.dashboard.teamRequest:
-        return itemKeys.TEAM_REQUEST;
-      case routes.dashboard.report:
-        return itemKeys.REPORT;
-      case routes.dashboard.semester:
-        return itemKeys.SEMESTER;
-      case routes.dashboard.teams:
-        return itemKeys.TEAM;
+      case routes.dashboard.orders:
+        return itemKeys.ORDER;
+      case routes.dashboard.quotes:
+        return itemKeys.QUOTE;
+      // case routes.dashboard.classes:
+      //   return itemKeys.CLASS;
+      // case routes.dashboard.teamRequest:
+      //   return itemKeys.TEAM_REQUEST;
+      // case routes.dashboard.report:
+      //   return itemKeys.REPORT;
+      // case routes.dashboard.semester:
+      //   return itemKeys.SEMESTER;
+      // case routes.dashboard.teams:
+      //   return itemKeys.TEAM;
       default:
     }
 
@@ -106,31 +117,18 @@ export const AppSider = () => {
 
   return (
     <Sider
-      width={config.SIDER_WIDTH}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={(value) => setCollapsed(value)}
       theme="light"
-      className="pb-4"
-      style={{
-        overflow: "auto",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        bottom: 0,
-        borderRight: "1px solid #eee",
-      }}
+      className="dashboard-sider pb-8 h-[100vh] !border-x-2 !border-gray-600"
     >
-      <Header className="flex-center bg-white">
-        <Link to={routes.dashboard.root} style={{ textDecoration: "none" }}>
-          <Title
-            level={4}
-            style={{ color: "#666", marginTop: "0.5rem" }}
-            onClick={() => navigate(routes.dashboard.root)}
-          >
-            JAMA Decor
-          </Title>
-          {/* <Dashboard size={"40"} style={{ color: "#333", fontSize: 50 }} /> */}
-        </Link>
-      </Header>
+      <Link
+        to={routes.dashboard.home}
+        className={`flex-center mb-4 duration-500 ${collapsed ? "h-[60px]" : "h-[120px]"}`}
+      >
+        <img src={logoUrl} height={collapsed ? 40 : 100} className="duration-300" />
+      </Link>
       <Menu
         theme="light"
         mode="inline"

@@ -18,22 +18,10 @@ export const ProfileBar = () => {
   const [notificationsCount, setCount] = useState(0);
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
+    // localStorage.removeItem("jwt");
+    localStorage.removeItem("user");
     setUser(undefined);
     navigate(routes.login);
-  };
-
-  const getRoleName = () => {
-    switch (user?.role) {
-      case roles.ADMIN:
-        return "Admin";
-      case roles.FACTORY:
-        return "Giáo viên";
-      case roles.WORKER:
-        return "Sinh viên";
-      default:
-        return "";
-    }
   };
 
   const items = [

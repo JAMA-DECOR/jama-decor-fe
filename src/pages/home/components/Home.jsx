@@ -53,7 +53,7 @@ const Home = () => {
               <Row>
                 <Space className="w-full" direction="vertical">
                   <Row>
-                    <Title level={4}>Views</Title>
+                    <Title level={5}>Tổng đơn hàng tại xưởng</Title>
                   </Row>
                   <Row>
                     <Col span={16} className="flex items-center">
@@ -90,7 +90,7 @@ const Home = () => {
               <Row>
                 <Space className="w-full" direction="vertical">
                   <Row>
-                    <Title level={4}>Visits</Title>
+                    <Title level={5}>Tổng đơn hàng tại công trình</Title>
                   </Row>
                   <Row>
                     <Col span={16} className="flex items-center">
@@ -127,7 +127,7 @@ const Home = () => {
               <Row>
                 <Space className="w-full" direction="vertical">
                   <Row>
-                    <Title level={4}>New Users</Title>
+                    <Title level={4}>Tổng hợp đồng</Title>
                   </Row>
                   <Row>
                     <Col span={16} className="flex items-center">
@@ -160,11 +160,11 @@ const Home = () => {
             </Card>
           </Col>
           <Col span={6}>
-            <Card style={{ borderRadius: "1rem", backgroundColor: "#E3F5FF" }} loading={loading}>
+            <Card style={{ borderRadius: "1rem", backgroundColor: "#E5ECF6" }} loading={loading}>
               <Row>
                 <Space className="w-full" direction="vertical">
                   <Row>
-                    <Title level={4}>Active Users</Title>
+                    <Title level={4}>Tổng doanh thu</Title>
                   </Row>
                   <Row>
                     <Col span={16} className="flex items-center">
@@ -197,10 +197,21 @@ const Home = () => {
             </Card>
           </Col>
         </Row>
-        <Row gutter={48}>
-          <Col span={18}>
+        <Row gutter={32}>
+          <Col span={12}>
+            <Card style={{ borderRadius: "1rem", backgroundColor: "#E3F5FF" }} loading={loading}>
+              {/* <Row>
+                <Space className="w-full" direction="vertical">
+                  <Row>
+                    <Title level={4}>Views</Title>
+                  </Row>
+                </Space>
+              </Row> */}
+            </Card>
+          </Col>
+          <Col span={12}>
             <Card
-              style={{ borderRadius: "1rem", backgroundColor: "#E3F5FF" }}
+              style={{ borderRadius: "1rem", backgroundColor: "#E5ECF6" }}
               loading={loading}
             ></Card>
           </Col>

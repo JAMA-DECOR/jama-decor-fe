@@ -14,14 +14,14 @@ export const mockOverview = {
     status: 'dec',
   },
   newUsers: {
-    total: 1156,
+    total: 1150,
     latestBalance: 174,
     percenatge: 15.03,
     status: 'inc',
   },
   activeUsers: {
-    total: 239000,
-    latestBalance: 14531,
+    total: 239000000,
+    latestBalance: 14531000,
     percenatge: 6.08,
     status: 'inc',
   },

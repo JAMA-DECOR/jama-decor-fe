@@ -5,12 +5,15 @@ const routes = {
 	dashboard: {
 		root: "/dashboard",
 		home: "home",
+		profile: "profile",
+		accounts: "accounts",
+		orders: "orders",
+		quotes: "quotes",
+		// old
 		courses: "courses",
 		classes: "classes",
-		accounts: "accounts",
 		projects: "projects",
 		teams: "teams",
-		profile: "profile",
 		teamRequest: "team-requests",
 		report: "team-report",
 		semester: "semester",

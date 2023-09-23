@@ -27,13 +27,15 @@ export const AppHeader = () => {
         paddingRight: 32,
       }}
     >
-      <Title level={4} className="mb-0 !text-[#333]">{title}</Title>
+      <Title level={4} className="mb-0 !text-[#333]">
+        {title}
+      </Title>
       <Space direction="horizontial" size="middle">
         <Space.Compact>
           <Input
             placeholder="Tìm kiếm hoặc gõ lệnh (Ctrl + G)"
             style={{ width: "280px" }}
-            prefix={<Search size="16" fill="#999" style={{ marginTop: "-4px" }} />}
+            prefix={<Search size="16" fill="#999" style={{ marginTop: "4px" }} />}
           />
         </Space.Compact>
         <ProfileBar />

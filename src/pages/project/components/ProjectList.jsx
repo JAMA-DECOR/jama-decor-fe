@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Button, Tag } from "antd";
-import { mockAccounts } from "../../../../__mocks__/account";
+import { mockAccounts } from "../../../../__mocks__/accounts";
 import { roles } from "../../../../constants/app";
 import { Edit } from "@icon-park/react";
 import { getRoleName } from "../../../utils";

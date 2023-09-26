@@ -3,7 +3,7 @@ import BaseModal from "../../../components/BaseModal";
 import { Form, Input, Select } from "antd";
 import { roles } from "../../../constants/app";
 
-export const AccountModal = ({ open, onCancel, account, title }) => {
+export const AccountModal = ({ open, onCancel, accounts, title }) => {
 	const roleOptions = [
 		{
 			value: roles.WORKER,
@@ -28,7 +28,7 @@ export const AccountModal = ({ open, onCancel, account, title }) => {
 
 	return (
 		<BaseModal title={title} open={open} onCancel={onCancel}>
-			<Form layout="vertical" initialValues={account}>
+			<Form layout="vertical" initialValues={accounts}>
 				<Form.Item
 					name="email"
 					label="Email"

@@ -5,6 +5,7 @@ export const mockAccounts = [
 		id: "1",
 		fullName: "Nguyen Van A",
 		email: "admin@gmail.com",
+		username: "admin01",
 		password: '123456',
 		role: roles.ADMIN,
 		birthday: '15/03/2001',
@@ -17,6 +18,7 @@ export const mockAccounts = [
 		id: "2",
 		fullName: "Nguyen Van B",
 		email: "factory@gmail.com",
+		username: "factory01",
 		password: '123456',
 		role: roles.FACTORY,
 		birthday: '20/10/1986',
@@ -28,7 +30,8 @@ export const mockAccounts = [
 	{
 		id: "3",
 		fullName: "Nguyen Van C",
-		email: "leader@gmail.com",
+		email: "manager@gmail.com",
+		username: "manager01",
 		password: '123456',
 		role: roles.LEADER,
 		birthday: '12/08/1999',
@@ -42,7 +45,8 @@ export const mockAccounts = [
 	{
 		id: "4",
 		fullName: "Tran Thi S",
-		email: "worker@gmail.com",
+		email: "worker01@gmail.com",
+		username: "worker01",
 		password: '123456',
 		role: roles.WORKER,
 		birthday: '20/10/1991',
@@ -54,48 +58,14 @@ export const mockAccounts = [
 	{
 		id: "5",
 		fullName: "Nguyen Van D",
-		email: "worker@gmail.com",
+		email: "worker02@gmail.com",
+		username: "worker02",
 		password: '123456',
 		role: roles.WORKER,
 		birthday: '20/10/2000',
 		address: 'Toà nhà C12, đường SS, khu 6, quận 9, thành phố Hồ Chí Minh',
 		phone: '0838226447',
 		isBan: false,
-		active: true,
-	},
-];
-
-export const mockStudents = [
-	{
-		id: "3",
-		fullName: "Nguyễn Thanh Huyền",
-		email: "huyenthanh@fpt.edu.com",
-		role: roles.WORKER,
-		active: true,
-		team: {
-			name: "Nhóm 1",
-			members: [
-				{
-					name: "Trần Hạo Nam",
-				},
-				{
-					name: "Bùi Văn Công",
-				},
-			],
-		},
-	},
-	{
-		id: "4",
-		fullName: "Trần Vĩnh Phát",
-		email: "phatvinh@fpt.edu.com",
-		role: roles.WORKER,
-		active: true,
-	},
-	{
-		id: "5",
-		fullName: "Lê Văn Vũ",
-		email: "vule@fpt.edu.com",
-		role: roles.WORKER,
 		active: true,
 	},
 ];

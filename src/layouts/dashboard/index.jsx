@@ -9,7 +9,6 @@ import animationData from "../../assets/lotties/home-animation";
 import AuthApi from "../../apis/auth";
 import { UserContext } from "../../providers/user";
 import { getRoleName } from "../../utils";
-import { ActivitySider } from "./ActivitySider";
 const { Content } = Layout;
 const { Title } = Typography;
 
@@ -22,7 +21,8 @@ export const Dashboard = () => {
     AuthApi.getUser()
       .then((user) => {
         if (!user) {
-          localStorage.removeItem("jwt");
+          // localStorage.removeItem("jwt");
+          localStorage.removeItem("user");
           navigate(routes.login);
           return;
         }
@@ -49,7 +49,7 @@ export const Dashboard = () => {
         <AppSider />
         <Layout>
           <AppHeader />
-          <Layout hasSider>
+          <Layout>
             <Content
               style={{
                 padding: 16,

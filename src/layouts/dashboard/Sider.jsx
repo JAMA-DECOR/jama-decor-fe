@@ -1,4 +1,16 @@
-import { DegreeHat, User, Classroom, Analysis, Hourglass, EveryUser } from "@icon-park/react";
+import {
+  DegreeHat,
+  User,
+  Classroom,
+  Analysis,
+  Hourglass,
+  EveryUser,
+  HourglassNull,
+  ListView,
+  DataUser,
+  CategoryManagement,
+  AdjacentItem,
+} from "@icon-park/react";
 import { Menu, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useState } from "react";
@@ -6,7 +18,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import routes from "../../constants/routes";
 import { usePermissions } from "../../hooks/permission";
 import { ALL_PERMISSIONS, logoUrl } from "../../constants/app";
-import { DashboardOutlined, FileDoneOutlined, FormOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  BuildOutlined,
+  CodeSandboxOutlined,
+  DashboardOutlined,
+  FileDoneOutlined,
+  FormOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 const { Title } = Typography;
 
@@ -16,71 +35,149 @@ export const AppSider = () => {
   const location = useLocation();
   const permissions = usePermissions();
 
-  const canViewAccount = permissions?.includes(ALL_PERMISSIONS.account.sider);
-  const canViewCourse = permissions?.includes(ALL_PERMISSIONS.course.sider);
-  const canViewClass = permissions?.includes(ALL_PERMISSIONS.class.sider);
-  const canViewTeam = permissions?.includes(ALL_PERMISSIONS.team.sider);
-  const canViewReport = permissions?.includes(ALL_PERMISSIONS.report.sider);
-  const canViewSemester = permissions?.includes(ALL_PERMISSIONS.semester.sider);
+  const canViewAccounts = permissions?.includes(ALL_PERMISSIONS.accounts?.sider);
+  const canViewOrders = permissions?.includes(ALL_PERMISSIONS.orders?.sider);
+  const canViewQuotes = permissions?.includes(ALL_PERMISSIONS.quotes?.sider);
+  const canViewMaterials = permissions?.includes(ALL_PERMISSIONS.materials?.sider);
+  const canViewMaterialTypes = permissions?.includes(ALL_PERMISSIONS.materialTypes?.sider);
+  const canViewItems = permissions?.includes(ALL_PERMISSIONS.items?.sider);
+  const canViewItemTypes = permissions?.includes(ALL_PERMISSIONS.itemTypes?.sider);
+  const canViewEmployees = permissions?.includes(ALL_PERMISSIONS.employees?.sider);
+  const canViewGroups = permissions?.includes(ALL_PERMISSIONS.groups?.sider);
+  const canViewManagersTasks = permissions?.includes(ALL_PERMISSIONS.managersTasks?.sider);
+  const canViewManagersReports = permissions?.includes(ALL_PERMISSIONS.managersReports?.sider);
+  const canViewWorkers = permissions?.includes(ALL_PERMISSIONS.workers?.sider);
+  const canViewWorkersTasks = permissions?.includes(ALL_PERMISSIONS.workersTasks?.sider);
+  const canViewWorkersReports = permissions?.includes(ALL_PERMISSIONS.workersReports?.sider);
+  const canViewTasks = permissions?.includes(ALL_PERMISSIONS.tasks?.sider);
+  const canViewReports = permissions?.includes(ALL_PERMISSIONS.reports?.sider);
 
   const itemKeys = {
     DASHBOARD: "DASHBOARD",
-    ACCOUNT: "MANAGE_ACCOUNT",
-    ORDER: "MANAGE_ORDER",
-    QUOTE: "MANAGE_QUOTE",
+    ACCOUNTS: "MANAGE_ACCOUNTS",
+    ORDERS: "MANAGE_ORDERS",
+    QUOTES: "MANAGE_QUOTES",
+    P_MATERIALS: "P_MATERIALS",
+    MATERIALS: "MANAGE_MATERIALS",
+    MATERIAL_TYPES: "MANAGE_MATERIAL_TYPES",
+    P_ITEMS: "P_ITEMS",
+    ITEMS: "MANAGE_ITEMS",
+    ITEM_TYPES: "MANAGE_ITEM_TYPES",
+    P_EMPLOYEES: "P_EMPLOYEES",
+    EMPLOYEES: "MANAGE_EMPLOYEES",
+    GROUPS: "MANAGE_GROUPS",
+    MANAGERS_TASKS: "MANAGE_MANAGERS_TASKS",
+    MANAGERS_REPORTS: "MANAGE_MANAGERS_REPORTS",
   };
   const iconSize = 20;
   const items = [
     {
       key: itemKeys.DASHBOARD,
       icon: <DashboardOutlined size={iconSize} />,
-      label: <Link to={routes.dashboard.home}>Bảng điều khiển</Link>,
+      label: <Link to={routes.dashboard.home}>Tổng quan</Link>,
     },
-    {
-      key: itemKeys.ACCOUNT,
+    canViewAccounts && {
+      key: itemKeys.ACCOUNTS,
       icon: <UserOutlined size={iconSize} />,
       label: <Link to={routes.dashboard.accounts}>Quản lý tài khoản</Link>,
     },
-    {
-      key: itemKeys.ORDER,
+    canViewOrders && {
+      key: itemKeys.ORDERS,
       icon: <FormOutlined size={iconSize} />,
       label: <Link to={routes.dashboard.root}>Đơn đặt hàng</Link>,
     },
-    {
-      key: itemKeys.QUOTE,
+    canViewQuotes && {
+      key: itemKeys.QUOTES,
       icon: <FileDoneOutlined size={iconSize} />,
       label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
     },
-    // canViewAccount && {
-    //   key: itemKeys.ACCOUNT,
-    //   icon: <User size={iconSize} />,
-    //   label: <Link to={routes.dashboard.accounts}>Tài khoản</Link>,
-    // },
-    // canViewCourse && {
-    //   key: itemKeys.COURSE,
-    //   icon: <DegreeHat size={iconSize} />,
-    //   label: <Link to={routes.dashboard.courses}>Môn học</Link>,
-    // },
-    // canViewSemester && {
-    //   key: itemKeys.SEMESTER,
-    //   icon: <Hourglass size={iconSize} />,
-    //   label: <Link to={routes.dashboard.semester}>Học kỳ</Link>,
-    // },
-    // canViewClass && {
-    //   key: itemKeys.CLASS,
-    //   icon: <Classroom size={iconSize} />,
-    //   label: <Link to={routes.dashboard.classes}>Lớp học</Link>,
-    // },
-    // canViewTeam && {
-    //   key: itemKeys.TEAM,
-    //   icon: <EveryUser size={iconSize} />,
-    //   label: <Link to={routes.dashboard.teams}>Nhóm của tôi</Link>,
-    // },
-    // canViewReport && {
-    //   key: itemKeys.REPORT,
-    //   icon: <Analysis size={iconSize} />,
-    //   label: <Link to={routes.dashboard.report}>Báo cáo nhóm</Link>,
-    // },
+    {
+      key: itemKeys.P_MATERIALS,
+      icon: <BuildOutlined size={iconSize} />,
+      label: "Nguyên vật liệu",
+      children: [
+        canViewMaterialTypes && {
+          key: itemKeys.MATERIAL_TYPES,
+          icon: <CategoryManagement size={iconSize - 4} />,
+          label: <Link to={routes.dashboard.materialTypes}>Loại vật liệu</Link>,
+        },
+        canViewMaterials && {
+          key: itemKeys.MATERIALS,
+          icon: <FileDoneOutlined size={iconSize} />,
+          label: <Link to={routes.dashboard.materials}>Danh sách vật liệu</Link>,
+        },
+      ],
+    },
+    {
+      key: itemKeys.P_ITEMS,
+      icon: <CodeSandboxOutlined size={iconSize} />,
+      label: "Sản phẩm",
+      children: [
+        canViewItemTypes && {
+          key: itemKeys.ITEM_TYPES,
+          icon: <CategoryManagement size={iconSize - 4} />,
+          label: <Link to={routes.dashboard.root}>Loại sản phẩm</Link>,
+        },
+        canViewItems && {
+          key: itemKeys.ITEMS,
+          icon: <AdjacentItem size={iconSize - 4} />,
+          label: <Link to={routes.dashboard.root}>Danh sách sản phẩm</Link>,
+        },
+      ],
+    },
+    {
+      key: itemKeys.P_EMPLOYEES,
+      icon: <DataUser size={iconSize - 2} />,
+      label: "Nhân sự",
+      children: [
+        canViewEmployees && {
+          key: itemKeys.EMPLOYEES,
+          icon: <UserOutlined size={iconSize} />,
+          label: <Link to={routes.dashboard.root}>Quản lý Nhân sự</Link>,
+        },
+        canViewGroups && {
+          key: itemKeys.GROUPS,
+          icon: <EveryUser size={iconSize - 4} />,
+          label: <Link to={routes.dashboard.root}>Quản lý Tổ</Link>,
+        },
+      ],
+    },
+    canViewManagersTasks && {
+      key: itemKeys.MANAGERS_TASKS,
+      icon: <ListView size={iconSize - 4} />,
+      label: <Link to={routes.dashboard.root}>Quản lý công việc</Link>,
+    },
+    canViewManagersReports && {
+      key: itemKeys.MANAGERS_REPORTS,
+      icon: <HourglassNull size={iconSize - 4} />,
+      label: <Link to={routes.dashboard.root}>Báo cáo tiến độ</Link>,
+    },
+    //
+    canViewWorkers && {
+      key: itemKeys.QUOTES,
+      icon: <FileDoneOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
+    },
+    canViewWorkersTasks && {
+      key: itemKeys.QUOTES,
+      icon: <FileDoneOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
+    },
+    canViewWorkersReports && {
+      key: itemKeys.QUOTES,
+      icon: <FileDoneOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
+    },
+    canViewTasks && {
+      key: itemKeys.QUOTES,
+      icon: <FileDoneOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
+    },
+    canViewReports && {
+      key: itemKeys.QUOTES,
+      icon: <FileDoneOutlined size={iconSize} />,
+      label: <Link to={routes.dashboard.root}>Duyệt báo giá</Link>,
+    },
   ];
 
   const getSelectedKey = () => {
@@ -94,22 +191,19 @@ export const AppSider = () => {
       case routes.dashboard.home:
         return itemKeys.DASHBOARD;
       case routes.dashboard.accounts:
-        return itemKeys.ACCOUNT;
+        return itemKeys.ACCOUNTS;
       case routes.dashboard.orders:
-        return itemKeys.ORDER;
+        return itemKeys.ORDERS;
       case routes.dashboard.quotes:
-        return itemKeys.QUOTE;
-      // case routes.dashboard.classes:
-      //   return itemKeys.CLASS;
-      // case routes.dashboard.teamRequest:
-      //   return itemKeys.TEAM_REQUEST;
-      // case routes.dashboard.report:
-      //   return itemKeys.REPORT;
-      // case routes.dashboard.semester:
-      //   return itemKeys.SEMESTER;
-      // case routes.dashboard.teams:
-      //   return itemKeys.TEAM;
-      default:
+        return itemKeys.QUOTES;
+      case routes.dashboard.materials:
+        return itemKeys.MATERIALS;
+      case routes.dashboard.materialTypes:
+        return itemKeys.MATERIAL_TYPES;
+      case routes.dashboard.items:
+        return itemKeys.ITEMS;
+      case routes.dashboard.itemTypes:
+        return itemKeys.ITEM_TYPES;
     }
 
     return undefined;

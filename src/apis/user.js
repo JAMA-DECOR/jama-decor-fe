@@ -1,5 +1,5 @@
 import BaseApi from ".";
-import { mockAccounts } from "../__mocks__/account";
+import { mockAccounts } from "../__mocks__/accounts";
 
 const resource = "Users";
 

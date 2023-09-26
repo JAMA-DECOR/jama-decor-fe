@@ -205,7 +205,7 @@ const AccountList = () => {
           <>
             {record.role !== roles.ADMIN && (
               <Dropdown menu={{ items: getActionItems(record) }}>
-                <Button className="flex-center" icon={<More />} />
+                <Button className="mx-auto flex-center" icon={<More />} />
               </Dropdown>
             )}
           </>

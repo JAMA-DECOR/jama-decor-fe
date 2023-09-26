@@ -5,7 +5,7 @@ import Home from "./components/Home";
 
 export const HomePage = () => {
 	const permissions = usePermissions();
-	const canView = permissions?.includes(ALL_PERMISSIONS.account.view);
+	const canView = permissions?.includes(ALL_PERMISSIONS.accounts.view);
 
 	return <div>{canView && <Home />}</div>;
 };

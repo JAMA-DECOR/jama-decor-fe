@@ -127,7 +127,7 @@ const Home = () => {
               <Row>
                 <Space className="w-full" direction="vertical">
                   <Row>
-                    <Title level={4}>Tổng hợp đồng</Title>
+                    <Title level={5}>Tổng hợp đồng</Title>
                   </Row>
                   <Row>
                     <Col span={16} className="flex items-center">
@@ -164,7 +164,7 @@ const Home = () => {
               <Row>
                 <Space className="w-full" direction="vertical">
                   <Row>
-                    <Title level={4}>Tổng doanh thu</Title>
+                    <Title level={5}>Tổng doanh thu</Title>
                   </Row>
                   <Row>
                     <Col span={16} className="flex items-center">
@@ -199,15 +199,10 @@ const Home = () => {
         </Row>
         <Row gutter={32}>
           <Col span={12}>
-            <Card style={{ borderRadius: "1rem", backgroundColor: "#E3F5FF" }} loading={loading}>
-              {/* <Row>
-                <Space className="w-full" direction="vertical">
-                  <Row>
-                    <Title level={4}>Views</Title>
-                  </Row>
-                </Space>
-              </Row> */}
-            </Card>
+            <Card
+              style={{ borderRadius: "1rem", backgroundColor: "#E3F5FF" }}
+              loading={loading}
+            ></Card>
           </Col>
           <Col span={12}>
             <Card

@@ -2,17 +2,17 @@
 
 **1. What this MR does / why we need it:**  
 
-- To make sure that source code is cleaned.
+- To make sure that the source code is cleaned.
 - To make sure that your functions can be runnable.
 - To make sure that your function passes all happy cases.
-- To make sure that you didn't miss any file into the committing process.
+- To make sure that you didn't miss any files in the committing process.
 
 
 **2. Make sure that you've checked the boxes below before you submit MR:**
 
 - [ ] I have cleaned import libraries
 - [ ] I have formatted my files
-- [ ] I have run source code locally and there is no error.
+- [ ] I have run the source code locally and there is no error.
 - [ ] No conflict with the master branch.
 
 

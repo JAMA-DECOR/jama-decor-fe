@@ -23,6 +23,8 @@ import ProjectReportDetailPage from "../pages/report/detail";
 import { HomePage } from "../pages/home";
 import { MaterialListPage } from "../pages/materials/list";
 import { MaterialTypeListPage } from "../pages/material-types/list";
+import { ItemTypeListPage } from "../pages/item-types/list";
+import { ItemListPage } from "../pages/items/list";
 
 export const router = createBrowserRouter([
 	{
@@ -68,14 +70,16 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: routes.dashboard.items,
-						element: <AccountListPage />,
+						element: <ItemListPage />,
 					},
 					{
 						path: routes.dashboard.itemTypes,
-						element: <AccountListPage />,
+						element: <ItemTypeListPage />,
 					},
 
-					// old
+					//
+					// old routes
+					//
 					{
 						path: routes.dashboard.courses,
 						element: <CourseListPage />,

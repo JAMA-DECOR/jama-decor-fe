@@ -1,18 +1,14 @@
 import { Edit, Forbid, More, Unlock } from "@icon-park/react";
-import { Button, Dropdown, Modal, Space, Tag, message } from "antd";
+import { Button, Dropdown, Modal, Space } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import RoleApi from "../../../../apis/role";
-import UserApi from "../../../../apis/user";
 import { BaseTable } from "../../../../components/BaseTable";
-import { roles } from "../../../../constants/app";
-import { getRoleName } from "../../../../utils";
-import { UpdateMaterialTypeModal } from "../../components/UpdateMaterialTypeModal";
-import { mockMaterialTypes } from "../../../../__mocks__/jama/materials";
+import { UpdateMaterialTypeModal } from "../../components/UpdateItemTypeModal";
+import { mockItemTypes } from "../../../../__mocks__/jama/items";
 
-const MaterialTypeList = () => {
+const ItemTypeList = () => {
   const [loading, setLoading] = useState(false);
-  const [showUpdateMaterialTypeModal, setShowUpdateMaterialTypeModal] = useState(false);
-  const [materialTypeList, setMaterialTypeList] = useState([]);
+  const [showUpdateItemTypeModal, setShowUpdateItemTypeModal] = useState(false);
+  const [itemTypeList, setItemTypeList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
 
@@ -31,8 +27,8 @@ const MaterialTypeList = () => {
     //   }
     //   return 0; // no change in order
     // });
-    // setMaterialTypeList(data);
-    setMaterialTypeList(mockMaterialTypes);
+    // setItemTypeList(data);
+    setItemTypeList(mockItemTypes);
     setLoading(false);
   };
 
@@ -61,7 +57,7 @@ const MaterialTypeList = () => {
         icon: <Edit />,
         onClick: () => {
           userRef.current = record;
-          setShowUpdateMaterialTypeModal(true);
+          setShowUpdateItemTypeModal(true);
         },
       },
       {
@@ -84,7 +80,7 @@ const MaterialTypeList = () => {
       sorter: (a, b) => a.id.localeCompare(b.id),
     },
     {
-      title: "Tên loại vật liệu",
+      title: "Tên loại sản phẩm",
       dataIndex: "name",
       key: "name",
       render: (_, record) => {
@@ -146,18 +142,18 @@ const MaterialTypeList = () => {
       <Space className="w-full flex justify-between mb-6">
         <div></div>
         <Button className="btn-primary app-bg-primary font-semibold text-white" type="primay">
-          Thêm loại vật liệu
+          Thêm loại sản phẩm
         </Button>
       </Space>
       <BaseTable
-        title="Danh sách loại vật liệu"
-        dataSource={materialTypeList}
+        title="Danh sách loại sản phẩm"
+        dataSource={itemTypeList}
         columns={columns}
         loading={loading}
         pagination={false}
         searchOptions={{
           visible: true,
-          placeholder: "Tìm kiếm loại vật liệu...",
+          placeholder: "Tìm kiếm loại sản phẩm...",
           onSearch: handleSearch,
           width: 300,
         }}
@@ -176,4 +172,4 @@ const MaterialTypeList = () => {
   );
 };
 
-export default MaterialTypeList;
+export default ItemTypeList;

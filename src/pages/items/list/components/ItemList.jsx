@@ -1,18 +1,15 @@
 import { Edit, Forbid, More, Unlock } from "@icon-park/react";
-import { Button, Dropdown, Modal, Space, Tag, message } from "antd";
+import { Button, Dropdown, Modal, Space } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import RoleApi from "../../../../apis/role";
-import UserApi from "../../../../apis/user";
 import { BaseTable } from "../../../../components/BaseTable";
 import { roles } from "../../../../constants/app";
-import { getRoleName } from "../../../../utils";
-import { UpdateMaterialTypeModal } from "../../components/UpdateMaterialTypeModal";
-import { mockMaterialTypes } from "../../../../__mocks__/jama/materials";
+import { UpdateItemModal } from "../../components/UpdateItemModal";
+import { mockItemTypes, mockItems } from "../../../../__mocks__/jama/items";
 
-const MaterialTypeList = () => {
+const ItemList = () => {
   const [loading, setLoading] = useState(false);
-  const [showUpdateMaterialTypeModal, setShowUpdateMaterialTypeModal] = useState(false);
-  const [materialTypeList, setMaterialTypeList] = useState([]);
+  const [showUpdateItemModal, setShowUpdateItemModal] = useState(false);
+  const [itemList, setItemList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
 
@@ -31,8 +28,8 @@ const MaterialTypeList = () => {
     //   }
     //   return 0; // no change in order
     // });
-    // setMaterialTypeList(data);
-    setMaterialTypeList(mockMaterialTypes);
+    // setItemList(data);
+    setItemList(mockItems);
     setLoading(false);
   };
 
@@ -52,7 +49,7 @@ const MaterialTypeList = () => {
   }, []);
 
   const getActionItems = (record) => {
-    const { isActive } = record;
+    const { isActive, id } = record;
 
     return [
       {
@@ -61,7 +58,7 @@ const MaterialTypeList = () => {
         icon: <Edit />,
         onClick: () => {
           userRef.current = record;
-          setShowUpdateMaterialTypeModal(true);
+          setShowUpdateItemModal(true);
         },
       },
       {
@@ -79,12 +76,12 @@ const MaterialTypeList = () => {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      width: "20%",
       align: "center",
+      width: "10%",
       sorter: (a, b) => a.id.localeCompare(b.id),
     },
     {
-      title: "Tên loại vật liệu",
+      title: "Tên sản phẩm",
       dataIndex: "name",
       key: "name",
       render: (_, record) => {
@@ -93,39 +90,74 @@ const MaterialTypeList = () => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: "Tình trạng",
-      dataIndex: "isActive",
-      key: "isActive",
-      width: "30%",
+      title: "Màu sắc",
+      dataIndex: "color",
+      key: "color",
       align: "center",
-      render: (_, { isActive }) => {
-        return (
-          <span style={{ color: isActive ? "#29CB00" : "#FF0000" }}>
-            {isActive ? "Đang hoạt động" : "Không hoạt động"}
-          </span>
-        );
-      },
-      sorter: (a, b) => a.isActive - b.isActive,
-      // filter: {
-      //   placeholder: "Chọn trạng thái",
-      //   label: "Trạng thái",
-      //   filterOptions: [
-      //     {
-      //       label: "Đang hoạt động",
-      //       value: false,
-      //     },
-      //     {
-      //       label: "Khóa",
-      //       value: true,
-      //     },
-      //   ],
-      // },
+      sorter: (a, b) => a.color.localeCompare(b.color),
     },
+    {
+      title: "Loại sản phẩm",
+      dataIndex: "typeId",
+      key: "typeId",
+      width: "15%",
+      align: "center",
+      render: (_, record) => {
+        return <span>{mockItemTypes.find((e) => e.id === record.typeId)?.name}</span>;
+      },
+      sorter: (a, b) => a.typeId.localeCompare(b.typeId),
+    },
+    // {
+    //   title: "Số lượng",
+    //   dataIndex: "quantity",
+    //   key: "quantity",
+    //   align: "center",
+    //   sorter: (a, b) => a.quantity.localeCompare(b.quantity),
+    // },
+    {
+      title: "Đơn giá",
+      dataIndex: "amount",
+      key: "amount",
+      align: "center",
+      width: "12%",
+      render: (_, { amount }) => {
+        return <span>{amount} VND</span>;
+      },
+      sorter: (a, b) => a.amount.localeCompare(b.amount),
+    },
+    // {
+    //   title: "Tình trạng",
+    //   dataIndex: "isActive",
+    //   key: "isActive",
+    //   width: "30%",
+    //   align: "center",
+    //   render: (_, { isActive }) => {
+    //     return (
+    //       <span style={{ color: isActive ? "#29CB00" : "#FF0000" }}>
+    //         {isActive ? "Đang hoạt động" : "Không hoạt động"}
+    //       </span>
+    //     );
+    //   },
+    //   sorter: (a, b) => a.isActive - b.isActive,
+    //   filter: {
+    //     placeholder: "Chọn trạng thái",
+    //     label: "Trạng thái",
+    //     filterOptions: [
+    //       {
+    //         label: "Đang hoạt động",
+    //         value: false,
+    //       },
+    //       {
+    //         label: "Khóa",
+    //         value: true,
+    //       },
+    //     ],
+    //   },
+    // },
     {
       title: "Thao tác",
       dataIndex: "action",
       key: "action",
-      width: "10%",
       align: "center",
       render: (_, record) => {
         return (
@@ -146,26 +178,26 @@ const MaterialTypeList = () => {
       <Space className="w-full flex justify-between mb-6">
         <div></div>
         <Button className="btn-primary app-bg-primary font-semibold text-white" type="primay">
-          Thêm loại vật liệu
+          Thêm sản phẩm
         </Button>
       </Space>
       <BaseTable
-        title="Danh sách loại vật liệu"
-        dataSource={materialTypeList}
+        title="Danh sách sản phẩm"
+        dataSource={itemList}
         columns={columns}
         loading={loading}
         pagination={false}
         searchOptions={{
           visible: true,
-          placeholder: "Tìm kiếm loại vật liệu...",
+          placeholder: "Tìm kiếm sản phẩm...",
           onSearch: handleSearch,
           width: 300,
         }}
       />
-      {/* <UpdateMaterialTypeModal
+      {/* <UpdateItemModal
         user={userRef.current}
-        open={showUpdateMaterialTypeModal}
-        onCancel={() => setShowUpdateMaterialTypeModal(false)}
+        open={showUpdateItemModal}
+        onCancel={() => setShowUpdateItemModal(false)}
         allRoles={rolesRef.current}
         onSuccess={() => getData()}
       /> */}
@@ -176,4 +208,4 @@ const MaterialTypeList = () => {
   );
 };
 
-export default MaterialTypeList;
+export default ItemList;

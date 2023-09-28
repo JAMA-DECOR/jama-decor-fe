@@ -32,10 +32,10 @@
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
+    "dev": "react-scripts start --watchAll",
     "build": "react-scripts build",
-    "dev": "react-scripts start",
-    "eject": "react-scripts eject",
     "start": "react-scripts start",
+    "eject": "react-scripts eject",
     "test": "react-scripts test --watchAll"
   },
   "eslintConfig": {

@@ -116,12 +116,12 @@ export const AppSider = () => {
         canViewItemTypes && {
           key: itemKeys.ITEM_TYPES,
           icon: <CategoryManagement size={iconSize - 4} />,
-          label: <Link to={routes.dashboard.root}>Loại sản phẩm</Link>,
+          label: <Link to={routes.dashboard.itemTypes}>Loại sản phẩm</Link>,
         },
         canViewItems && {
           key: itemKeys.ITEMS,
           icon: <AdjacentItem size={iconSize - 4} />,
-          label: <Link to={routes.dashboard.root}>Danh sách sản phẩm</Link>,
+          label: <Link to={routes.dashboard.items}>Danh sách sản phẩm</Link>,
         },
       ],
     },

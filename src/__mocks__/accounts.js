@@ -3,7 +3,7 @@ import { roles } from "../constants/app";
 export const mockAccounts = [
 	{
 		id: "1",
-		fullName: "Nguyen Van A",
+		fullName: "Administrator",
 		email: "admin@gmail.com",
 		username: "admin01",
 		password: '123456',
@@ -16,7 +16,7 @@ export const mockAccounts = [
 	},
 	{
 		id: "2",
-		fullName: "Nguyen Van B",
+		fullName: "Factory",
 		email: "factory@gmail.com",
 		username: "factory01",
 		password: '123456',
@@ -29,7 +29,7 @@ export const mockAccounts = [
 	},
 	{
 		id: "3",
-		fullName: "Nguyen Van C",
+		fullName: "Manager",
 		email: "manager@gmail.com",
 		username: "manager01",
 		password: '123456',
@@ -44,7 +44,7 @@ export const mockAccounts = [
 
 	{
 		id: "4",
-		fullName: "Tran Thi S",
+		fullName: "Worker",
 		email: "worker01@gmail.com",
 		username: "worker01",
 		password: '123456',
@@ -57,9 +57,22 @@ export const mockAccounts = [
 	},
 	{
 		id: "5",
-		fullName: "Nguyen Van D",
+		fullName: "Worker",
 		email: "worker02@gmail.com",
 		username: "worker02",
+		password: '123456',
+		role: roles.WORKER,
+		birthday: '20/10/2000',
+		address: 'Toà nhà C12, đường SS, khu 6, quận 9, thành phố Hồ Chí Minh',
+		phone: '0838226447',
+		isBan: false,
+		active: true,
+	},
+	{
+		id: "6",
+		fullName: "Worker",
+		email: "worker03@gmail.com",
+		username: "worker03",
 		password: '123456',
 		role: roles.WORKER,
 		birthday: '20/10/2000',

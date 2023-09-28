@@ -1,11 +1,12 @@
 import { Card, Col, Row, Typography, Space } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import RoleApi from "../../../apis/role";
-import UserApi from "../../../apis/user";
 import { roles } from "../../../constants/app";
 import { reduceNumber } from "../../../utils";
 import { mockOverview } from "../../../__mocks__/jama/dashboard";
 import { TrendingDown, TrendingUp } from "@icon-park/react";
+import ReactECharts from "echarts-for-react";
+import { mockAccounts } from "../../../__mocks__/accounts";
 
 const { Title } = Typography;
 
@@ -16,6 +17,112 @@ const Home = () => {
 
   const userRef = useRef();
   const rolesRef = useRef();
+
+  const getUsersStatistics = () => {
+    let data = [];
+    mockAccounts.map((e) => {
+      let index = data.findIndex((d) => d.name === e.role);
+      index >= 0 ? (data[index].value += 1) : data.push({ name: e.role, value: 1 });
+    });
+    return data;
+  };
+
+  const userOptions = {
+    textStyle: {
+      fontFamily: "Roboto",
+    },
+    height: "420px",
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      top: "0",
+      left: "center",
+    },
+    series: [
+      {
+        name: "User's statistic",
+        type: "pie",
+        radius: ["54%", "80%"],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: "#fff",
+          borderWidth: 2,
+        },
+        label: {
+          show: false,
+          position: "center",
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 36,
+            fontWeight: "bold",
+          },
+        },
+        labelLine: {
+          show: false,
+        },
+        data: getUsersStatistics(),
+      },
+    ],
+  };
+
+  const orderOptions = {
+    textStyle: {
+      fontFamily: "Roboto",
+    },
+    height: "420px",
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      left: "5%",
+      left: "center",
+    },
+    series: [
+      {
+        name: "Order's statistic",
+        type: "pie",
+        radius: ["0%", "80%"],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: "#fff",
+          borderWidth: 2,
+        },
+        label: {
+          show: false,
+          position: "center",
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 36,
+            fontWeight: "bold",
+          },
+        },
+        labelLine: {
+          show: false,
+        },
+        data: [
+          {
+            name: "Đang tiến hành",
+            value: 50,
+          },
+          {
+            name: "Hoàn thành",
+            value: 32,
+          },
+          {
+            name: "Chưa tiến hành",
+            value: 18,
+          },
+        ],
+      },
+    ],
+  };
 
   const getHomeData = async (keyword) => {
     setLoading(true);
@@ -199,16 +306,17 @@ const Home = () => {
         </Row>
         <Row gutter={32}>
           <Col span={12}>
-            <Card
-              style={{ borderRadius: "1rem", backgroundColor: "#E3F5FF" }}
-              loading={loading}
-            ></Card>
+            <Title level={4}>Thống kê người dùng</Title>
+
+            <Card style={{ borderRadius: "1rem", backgroundColor: "#fff" }} loading={loading}>
+              <ReactECharts className="!h-[420px]" option={userOptions} />
+            </Card>
           </Col>
           <Col span={12}>
-            <Card
-              style={{ borderRadius: "1rem", backgroundColor: "#E5ECF6" }}
-              loading={loading}
-            ></Card>
+            <Title level={4}>Thống kê đơn đặt hàng</Title>
+            <Card style={{ borderRadius: "1rem", backgroundColor: "#fff" }} loading={loading}>
+              <ReactECharts className="!h-[420px]" option={orderOptions} />
+            </Card>
           </Col>
         </Row>
       </Space>

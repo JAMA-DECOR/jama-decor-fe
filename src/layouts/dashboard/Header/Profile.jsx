@@ -18,7 +18,7 @@ export const ProfileBar = () => {
   const [notificationsCount, setCount] = useState(0);
 
   const handleLogout = () => {
-    // localStorage.removeItem("jwt");
+    localStorage.removeItem("jwt");
     localStorage.removeItem("user");
     setUser(undefined);
     navigate(routes.login);
@@ -59,8 +59,7 @@ export const ProfileBar = () => {
       >
         <span className="cursor-pointer text-[#666] font-semibold">
           {user?.fullName}
-          {/* - {getRoleName()} */}
-          <Down />
+          <Down className="ml-1 absolute top-[0.2rem] bottom-0" />
         </span>
       </Dropdown>
     </Container>

@@ -1,33 +1,25 @@
 import BaseApi from ".";
 import { mockAccounts } from "../__mocks__/accounts";
 
-const resource = "Users";
+const resource = "User";
 
 export const searchUsers = async (keyword) => {
 	try {
 		// const query = keyword ? `?search=${keyword}` : "";
-		// const response = await BaseApi.get(`/${resource}/SearchUser${query}`);
-		// return response.data;
-		return mockAccounts;
+		let params = {};
+		if (keyword) params = { ...params, keyword };
+		const response = await BaseApi.get(`/${resource}`, { params: params });
+		return response.data;
+		// return mockAccounts;
 	} catch (error) {
 		console.log("Error search users: ", error);
 		return [];
 	}
 };
 
-export const getListTeacher = async () => {
-	try {
-		const response = await BaseApi.get(`/${resource}/GetListTeacher`);
-		return response.data;
-	} catch (error) {
-		console.log("Error get list teacherss: ", error);
-		return [];
-	}
-};
-
 const banUser = async (userId) => {
 	try {
-		const response = await BaseApi.put(`/Users/BanUser/${userId}`);
+		const response = await BaseApi.put(`/${resource}/BanUser/${userId}`);
 		return response.status === 200;
 	} catch (error) {
 		console.log("Error ban user: ", error);
@@ -37,7 +29,7 @@ const banUser = async (userId) => {
 
 const unbanUser = async (userId) => {
 	try {
-		const response = await BaseApi.put(`/Users/UnbanUser/${userId}`);
+		const response = await BaseApi.put(`/${resource}/UnbanUser/${userId}`);
 		return response.status === 200;
 	} catch (error) {
 		console.log("Error unban user: ", error);
@@ -47,7 +39,7 @@ const unbanUser = async (userId) => {
 
 const updateUserRole = async (userId, roleId) => {
 	try {
-		const response = await BaseApi.put(`/Users/UpdateUserRole`, {
+		const response = await BaseApi.put(`/${resource}/UpdateUserRole`, {
 			userId,
 			roleId,
 		});
@@ -63,7 +55,6 @@ const UserApi = {
 	banUser,
 	unbanUser,
 	updateUserRole,
-	getListTeacher,
 };
 
 export default UserApi;

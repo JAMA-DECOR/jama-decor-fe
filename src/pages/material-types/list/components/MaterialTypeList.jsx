@@ -8,6 +8,7 @@ import { roles } from "../../../../constants/app";
 import { getRoleName } from "../../../../utils";
 import { UpdateMaterialTypeModal } from "../../components/UpdateMaterialTypeModal";
 import { mockMaterialTypes } from "../../../../__mocks__/jama/materials";
+import MaterialCategoryApi from "../../../../apis/material-category";
 
 const MaterialTypeList = () => {
   const [loading, setLoading] = useState(false);
@@ -21,18 +22,10 @@ const MaterialTypeList = () => {
 
   const getData = async (keyword) => {
     setLoading(true);
-    // const data = await UserApi.searchUsers(keyword);
-    // data.sort((a, b) => {
-    //   if (a.role === roles.ADMIN) {
-    //     return -1; // a comes before b
-    //   }
-    //   if (b.role === roles.ADMIN) {
-    //     return 1; // b comes before a
-    //   }
-    //   return 0; // no change in order
-    // });
-    // setMaterialTypeList(data);
-    setMaterialTypeList(mockMaterialTypes);
+    const response = await MaterialCategoryApi.getAllMaterialCategory(keyword);
+
+    setMaterialTypeList(response.data);
+    // setMaterialTypeList(mockMaterialTypes);
     setLoading(false);
   };
 

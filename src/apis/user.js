@@ -17,9 +17,29 @@ export const searchUsers = async (keyword) => {
 	}
 };
 
-const banUser = async (userId) => {
+const getUserByEmail = async (email) => {
 	try {
-		const response = await BaseApi.put(`/${resource}/BanUser/${userId}`);
+		const response = await BaseApi.get(`/${resource}/${email}`);
+		return response.data;
+	} catch (error) {
+		console.log("Error ban user: ", error);
+		return false;
+	}
+};
+
+const getUserRole = async (id) => {
+	try {
+		const response = await BaseApi.get(`/${resource}/GetUserRole/${id}`);
+		return response.data;
+	} catch (error) {
+		console.log("Error ban user: ", error);
+		return false;
+	}
+};
+
+const banUser = async (id) => {
+	try {
+		const response = await BaseApi.get(`/${resource}/BanUser/${id}`);
 		return response.status === 200;
 	} catch (error) {
 		console.log("Error ban user: ", error);
@@ -27,9 +47,9 @@ const banUser = async (userId) => {
 	}
 };
 
-const unbanUser = async (userId) => {
+const unbanUser = async (id) => {
 	try {
-		const response = await BaseApi.put(`/${resource}/UnbanUser/${userId}`);
+		const response = await BaseApi.get(`/${resource}/UnbanUser/${id}`);
 		return response.status === 200;
 	} catch (error) {
 		console.log("Error unban user: ", error);

@@ -19,7 +19,7 @@ export const Dashboard = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    AuthApi.getUser()
+    AuthApi.authorize()
       .then((user) => {
         if (!user) {
           localStorage.removeItem("jwt");

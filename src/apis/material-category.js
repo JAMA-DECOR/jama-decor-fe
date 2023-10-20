@@ -5,53 +5,51 @@ const resource = "Category";
 
 const getAllMaterialCategory = async (search, pageIndex, pageSize) => {
   try {
-
-    if (search) {
-      return await searchMaterialCategory(search, pageIndex, pageSize);
-    }
-    else {
-
-      var params = {};
-      if (pageIndex) {
-        params = { ...params, pageIndex };
-      }
-      if (pageSize) {
-        params = { ...params, pageSize };
-      }
-      const response = await BaseApi.get(`/${resource}/GetAllMaterialCategory`, {
-        params: params,
-      });
-      return response.data;
-    }
-  } catch (error) {
-    console.log("Error enroll item: ", error);
-    return false;
-  }
-};
-
-const searchMaterialCategory = async (search, pageIndex, pageSize) => {
-  try {
+    // if (search) {
+    //   return await searchMaterialCategory(search, pageIndex, pageSize);
+    // }
+    // else {
     var params = {};
-    if (search) {
-      params = { ...params, search };
-    }
     if (pageIndex) {
       params = { ...params, pageIndex };
     }
     if (pageSize) {
       params = { ...params, pageSize };
     }
-
-    const response = await BaseApi.post(`/${resource}/SearchMaterialCategory`, {
+    const response = await BaseApi.get(`/${resource}/GetAllMaterialCategory`, {
       params: params,
     });
-
     return response.data;
+    // }
   } catch (error) {
-    console.log("Error search item: ", error);
-    return [];
+    console.log("Error get item: ", error);
+    return false;
   }
 };
+
+// const searchMaterialCategory = async (search, pageIndex, pageSize) => {
+//   try {
+//     var params = {};
+//     if (search) {
+//       params = { ...params, search };
+//     }
+//     if (pageIndex) {
+//       params = { ...params, pageIndex };
+//     }
+//     if (pageSize) {
+//       params = { ...params, pageSize };
+//     }
+
+//     const response = await BaseApi.post(`/${resource}/SearchMaterialCategory`, {
+//       params: params,
+//     });
+
+//     return response.data;
+//   } catch (error) {
+//     console.log("Error search item: ", error);
+//     return [];
+//   }
+// };
 
 const getMaterialCategoryById = async (id) => {
   try {
@@ -95,7 +93,6 @@ const deleteMaterialCategory = async (id) => {
 
 const MaterialCategoryApi = {
   getAllMaterialCategory,
-  searchMaterialCategory,
   getMaterialCategoryById,
   createMaterialCategory,
   updateMaterialCategory,

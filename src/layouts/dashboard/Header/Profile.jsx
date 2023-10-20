@@ -1,12 +1,13 @@
 import { Down, Logout, User } from "@icon-park/react";
 import { BellFilled, BellOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Badge, Dropdown, Space } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../providers/user";
 import routes from "../../../constants/routes";
 import { roles } from "../../../constants/app";
 import styled from "styled-components";
+import SignalR from "../../../middleware/signalr";
 
 const Container = styled.div`
   color: white;
@@ -38,6 +39,11 @@ export const ProfileBar = () => {
       onClick: handleLogout,
     },
   ];
+
+  // useEffect(() => {
+  //   SignalR.initialize();
+  //   console.log(SignalR.connection);
+  // });
 
   return (
     <Container theme="light">

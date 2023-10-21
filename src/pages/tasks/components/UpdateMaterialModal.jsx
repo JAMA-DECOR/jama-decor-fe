@@ -4,7 +4,7 @@ import { Form, Select, message } from "antd";
 import UserApi from "../../../apis/user";
 import { getRoleName } from "../../../utils";
 
-export const UpdateMaterialTypeModal = ({ user, open, onCancel, allRoles, onSuccess }) => {
+export const UpdateMaterialModal = ({ user, open, onCancel, allRoles, onSuccess }) => {
   const formRef = useRef();
 
   const [loading, setLoading] = useState(false);

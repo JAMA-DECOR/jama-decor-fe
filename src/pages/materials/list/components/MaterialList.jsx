@@ -1,42 +1,49 @@
 import { Edit, Forbid, More, Unlock } from "@icon-park/react";
-import { Button, Dropdown, Modal, Space } from "antd";
+import { Button, Dropdown, Image, Modal, Space, Tooltip } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { BaseTable } from "../../../../components/BaseTable";
-import { UpdateMaterialModal } from "../../components/UpdateMaterialModal";
-import { mockMaterialTypes, mockMaterials } from "../../../../__mocks__/jama/materials";
+import { MaterialModal } from "../../components/MaterialModal";
 import MaterialApi from "../../../../apis/material";
+import MaterialCategoryApi from "../../../../apis/material-category";
+import { mockMaterials } from "../../../../__mocks__/jama/materials";
 
 const MaterialList = () => {
   const [loading, setLoading] = useState(false);
   const [showUpdateMaterialModal, setShowUpdateMaterialModal] = useState(false);
   const [materialList, setMaterialList] = useState([]);
+  const [materialTypeList, setMaterialTypeList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
 
-  const userRef = useRef();
+  const materialRef = useRef();
 
   const getData = async (keyword) => {
     setLoading(true);
-    const response = await MaterialApi.getAllMaterial(keyword);
+    let response = await MaterialCategoryApi.getAllMaterialCategory();
+    setMaterialTypeList(response.data);
 
+    response = await MaterialApi.getAllMaterial(keyword);
     setMaterialList(response.data);
     // setMaterialList(mockMaterials);
     setLoading(false);
   };
 
-  const showModal = (item) => {
-    setLoading(true);
-    setPreviewUrl(item.imageUrl);
-    setLoading(false);
-    setIsModalOpen(true);
-  };
+  // const showModal = (item) => {
+  //   setLoading(true);
+  //   setPreviewUrl(item.imageUrl);
+  //   setLoading(false);
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setPreviewUrl("");
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setPreviewUrl("");
+  //   setIsModalOpen(false);
+  // };
+
   useEffect(() => {
     getData();
+    document.documentElement.scrollTop = document.documentElement.clientHeight;
+    document.documentElement.scrollLeft = document.documentElement.clientWidth;
   }, []);
 
   const getActionItems = (record) => {
@@ -48,7 +55,7 @@ const MaterialList = () => {
         label: "Cập nhật thông tin",
         icon: <Edit />,
         onClick: () => {
-          userRef.current = record;
+          materialRef.current = record;
           setShowUpdateMaterialModal(true);
         },
       },
@@ -63,19 +70,24 @@ const MaterialList = () => {
   };
 
   const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      align: "center",
-      sorter: (a, b) => a.id.localeCompare(b.id),
-    },
+    // {
+    //   title: "ID",
+    //   dataIndex: "id",
+    //   key: "id",
+    //   align: "center",
+    //   sorter: (a, b) => a.id.localeCompare(b.id),
+    // },
     {
       title: "Tên vật liệu",
       dataIndex: "name",
       key: "name",
       render: (_, record) => {
-        return <span onClick={() => showModal(record)}>{record.name}</span>;
+        return (
+          <Tooltip title={() => <img src={record.imageUrl} className="w-full" />}>
+            {record.name}
+          </Tooltip>
+          // <span onClick={() => showModal(record)}>{record.name}</span>
+        );
       },
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
@@ -194,16 +206,19 @@ const MaterialList = () => {
           width: 300,
         }}
       />
-      {/* <UpdateMaterialModal
-        user={userRef.current}
+      <MaterialModal
+        data={materialRef.current}
+        typeList={materialTypeList}
         open={showUpdateMaterialModal}
-        onCancel={() => setShowUpdateMaterialModal(false)}
-        allRoles={rolesRef.current}
+        onCancel={() => {
+          setShowUpdateMaterialModal(false);
+          materialRef.current = null;
+        }}
         onSuccess={() => getData()}
-      /> */}
-      <Modal centered open={isModalOpen} onOk={closeModal} onCancel={closeModal} footer={null}>
+      />
+      {/* <Modal centered open={isModalOpen} onOk={closeModal} onCancel={closeModal} footer={null}>
         <img src={previewUrl} className="w-full h-full object-cover mt-8" />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

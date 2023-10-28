@@ -4,3 +4,12 @@
 .ant-menu-submenu .ant-menu-title-content {
   font-size: 14px;
 } */
+
+.tooltip-content {
+  visibility: hidden; /* Or display: none, depending on how you want it to behave */
+}
+
+.tooltip:hover + .tooltip-content {
+  /* Uses the adjacent sibling selector */
+  visibility: visible; /* Or display: block */
+}

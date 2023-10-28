@@ -65,7 +65,7 @@ export const ProfileBar = () => {
       >
         <span className="cursor-pointer text-[#666] font-semibold">
           {user?.fullName}
-          <Down className="ml-1 absolute top-[0.2rem] bottom-0" />
+          <Down className="ml-1" />
         </span>
       </Dropdown>
     </Container>

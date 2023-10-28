@@ -123,11 +123,11 @@ export const AppSider = () => {
       icon: <CodeSandboxOutlined size={iconSize} />,
       label: "Sản phẩm",
       children: [
-        canViewItemTypes && {
-          key: itemKeys.ITEM_TYPES,
-          icon: <CategoryManagement size={iconSize - 4} />,
-          label: <Link to={routes.dashboard.itemTypes}>Loại sản phẩm</Link>,
-        },
+        // canViewItemTypes && {
+        //   key: itemKeys.ITEM_TYPES,
+        //   icon: <CategoryManagement size={iconSize - 4} />,
+        //   label: <Link to={routes.dashboard.itemTypes}>Loại sản phẩm</Link>,
+        // },
         canViewItems && {
           key: itemKeys.ITEMS,
           icon: <AdjacentItem size={iconSize - 4} />,

@@ -10,18 +10,14 @@ const RootRoute = () => {
 
 	useEffect(() => {
 		const path = pathname;
-		// navigate(routes.dashboard.root);
-
-		if (UnauthorizedRoutes.includes(path)) {
-			if (isAuthenticated) {
-				navigate(routes.dashboard.root);
-			}
-		} else {
+		
+		// check if the path is needed to authorize
+		if (!UnauthorizedRoutes.includes(path)) {
 			if (!isAuthenticated) {
 				navigate(routes.login);
 			} else {
 				if (path === routes.root) {
-					navigate(routes.dashboard.root);
+					navigate(routes.dashboard.home);
 				}
 			}
 		}

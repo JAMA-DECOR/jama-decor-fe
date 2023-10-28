@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Col, Form, Input, Row, Space, Typography, message } from "antd";
+import { Button, Card, Col, Form, Input, Row, Space, Typography, message } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -6,7 +6,7 @@ import AuthApi from "../../apis/auth";
 import routes from "../../constants/routes";
 import { logoUrlBig, logoUrlMedium } from "../../constants/app";
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 const Container = styled.div`
   position: fixed;
@@ -29,9 +29,9 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const handleNavigateRegisterPage = () => {
-    navigate(routes.register);
-  };
+  // const handleNavigateRegisterPage = () => {
+  //   navigate(routes.register);
+  // };
 
   const handleLogin = async (email, password) => {
     setLoading(true);
@@ -48,17 +48,6 @@ export const LoginPage = () => {
   return (
     <Container>
       <Row className="h-full">
-        {/* <Title
-        level={1}
-        className="text-center"
-        style={{
-          marginTop: 50,
-          color: "#333",
-          letterSpacing: 2.5,
-        }}
-      >
-        JAMA Decor
-      </Title> */}
         <Col span={8} className="h-full flex-center bg-gradient-to-r from-orange-500 to-pink-300">
           <div className="bg-white flex-center p-10 circle">
             <img src={logoUrlBig} width={240} />

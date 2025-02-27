@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Input, Row, Space, Typography, message } from "antd";
+import { Avatar, Button, Card, Col, Form, Input, Row, Space, Typography, message } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -6,7 +6,7 @@ import AuthApi from "../../apis/auth";
 import routes from "../../constants/routes";
 import { logoUrlBig, logoUrlMedium } from "../../constants/app";
 
-const { Title } = Typography;
+const { Text, Title } = Typography;
 
 const Container = styled.div`
   position: fixed;
@@ -29,17 +29,17 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  // const handleNavigateRegisterPage = () => {
-  //   navigate(routes.register);
-  // };
+  const handleNavigateRegisterPage = () => {
+    navigate(routes.register);
+  };
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (phone, password) => {
     setLoading(true);
-    const success = await AuthApi.login(email, password);
+    const success = await AuthApi.login(phone, password);
     setLoading(false);
     if (success) {
       message.success(`Đăng nhập thành công!`);
-      navigate(routes.dashboard.root);
+      navigate(routes.root);
     } else {
       message.error("Sai tài khoản hoặc mật khẩu. Vui lòng nhập lại.");
     }
@@ -48,6 +48,17 @@ export const LoginPage = () => {
   return (
     <Container>
       <Row className="h-full">
+        {/* <Title
+        level={1}
+        className="text-center"
+        style={{
+          marginTop: 50,
+          color: "#333",
+          letterSpacing: 2.5,
+        }}
+      >
+        JAMA Decor
+      </Title> */}
         <Col span={8} className="h-full flex-center bg-gradient-to-r from-orange-500 to-pink-300">
           <div className="bg-white flex-center p-10 circle">
             <img src={logoUrlBig} width={240} />
@@ -69,21 +80,21 @@ export const LoginPage = () => {
                 layout="vertical"
                 onFinish={async (values) => {
                   console.log("data: ", values);
-                  const { email, password } = values;
-                  await handleLogin(email, password);
+                  const { phone, password } = values;
+                  await handleLogin(phone, password);
                 }}
               >
                 <Form.Item
-                  name="email"
+                  name="phone"
                   labelAlign="right"
                   rules={[
                     {
                       required: true,
-                      message: "Vui lòng nhập địa chỉ email",
+                      message: "Vui lòng nhập số điện thoại",
                     },
                   ]}
                 >
-                  <Input placeholder="Nhập email của bạn..." size="large" />
+                  <Input placeholder="Nhập số điện thoại của bạn..." size="large" />
                 </Form.Item>
                 <Form.Item
                   name="password"

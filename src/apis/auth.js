@@ -1,8 +1,15 @@
 import BaseApi from ".";
-import jwt_decode from "jwt-decode";
+import { mockAccounts } from "../__mocks__/accounts";
 
 const login = async (username, password) => {
 	try {
+		// // local
+		// let user = mockAccounts.find((item) => (item.email === username || item.username === username) && item.password === password)
+		// if (!!user) {
+		// 	localStorage.setItem("user", JSON.stringify(user));
+		// 	return true
+		// }
+
 		const response = await BaseApi.post("/User/Login", {
 			phoneNumber: username,
 			password: password,
@@ -10,11 +17,13 @@ const login = async (username, password) => {
 		if (response.status === 200) {
 			const jwt = response.data.result["access_token"];
 			const userId = response.data.result["userId"];
+			const role = response.data.result["role"];
 			localStorage.setItem("jwt", jwt);
 			localStorage.setItem("userId", userId);
+			localStorage.setItem("userRole", JSON.stringify(role));
 			return true;
 		}
-		return false;
+		return false
 	} catch (error) {
 		console.log("Wrong email or password", error);
 		return false;
@@ -23,27 +32,12 @@ const login = async (username, password) => {
 
 const authorize = async () => {
 	try {
-		const user = jwt_decode(localStorage.getItem("jwt") || '');
-		// console.log(user);
-		if (!!user && !!user.UserId && (new Date().getTime() < user.exp * 1000)) {
-			console.log(new Date().getTime(), user.exp * 1000);
-			const userId = localStorage.getItem("userId");
-			if (!userId) {
-				localStorage.setItem("userId", user.UserId);
-			}
-
-			const response = await BaseApi.get("/User/GetById/" + userId);
-			return response.data;
-		}
-		else {
-			localStorage.removeItem("jwt");
-			localStorage.removeItem("userId");
-
-			return undefined;
-		}
+		const id = localStorage.getItem("userId");
+		const response = await BaseApi.get("/User/GetById/" + id);
+		return response.data;
+		// const user = JSON.parse(localStorage.getItem("user")) || {};
+		// return user
 	} catch (error) {
-		localStorage.removeItem("jwt");
-		localStorage.removeItem("userId");
 		console.log("Error get user: ", error);
 		return undefined;
 	}

@@ -5,11 +5,6 @@
   font-size: 14px;
 } */
 
-.tooltip-content {
-  visibility: hidden; /* Or display: none, depending on how you want it to behave */
-}
-
-.tooltip:hover + .tooltip-content {
-  /* Uses the adjacent sibling selector */
-  visibility: visible; /* Or display: block */
+:where(.css-dev-only-do-not-override-nllxry).ant-card .ant-card-body {
+  padding: 24px 16px;
 }

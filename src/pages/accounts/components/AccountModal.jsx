@@ -1,55 +1,157 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import BaseModal from "../../../components/BaseModal";
-import { Form, Input, Select } from "antd";
-import { roles } from "../../../constants/app";
+import { DatePicker, Form, Input, InputNumber, Select, message } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import UserApi from "../../../apis/user";
+import dayjs from "dayjs";
 
-export const AccountModal = ({ open, onCancel, accounts, title }) => {
-	const roleOptions = [
-		{
-			value: roles.WORKER,
-			label: "Sinh viên",
-		},
-		{
-			value: roles.FACTORY,
-			label: "Giáo viên",
-		},
-	];
+export const AccountModal = ({ data, roleOptions, open, onCancel, onSuccess }) => {
+  const isCreate = !data;
+  const typeMessage = isCreate ? "Thêm" : "Cập nhật";
+  const formRef = useRef();
 
-	const statusOptions = [
-		{
-			value: true,
-			label: "Hoạt động",
-		},
-		{
-			value: false,
-			label: "Khóa",
-		},
-	];
+  const [roleName, setRoleName] = useState();
+  const [gender, setGender] = useState();
+  const [loading, setLoading] = useState(false);
 
-	return (
-		<BaseModal title={title} open={open} onCancel={onCancel}>
-			<Form layout="vertical" initialValues={accounts}>
-				<Form.Item
-					name="email"
-					label="Email"
-					rules={[{ required: true, message: "Vui lòng nhập email" }]}
-				>
-					<Input placeholder="Nhập email..." />
-				</Form.Item>
-				<Form.Item
-					name="fullName"
-					label="Họ tên"
-					rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
-				>
-					<Input placeholder="Nhập họ tên..." />
-				</Form.Item>
-				<Form.Item name="role" label="Vai trò">
-					<Select defaultValue={roles.WORKER} options={roleOptions} />
-				</Form.Item>
-				<Form.Item name="status" label="Trạng thái">
-					<Select defaultValue={true} options={statusOptions} />
-				</Form.Item>
-			</Form>
-		</BaseModal>
-	);
+  const handleSubmit = async (val) => {
+    const payload = { ...val, phoneNumber: val.phoneNumber, gender };
+    setLoading(true);
+    if (isCreate) {
+      // Exclude roleId from payload if it's a create operation
+      delete payload.roleId;
+    } else {
+      // For update operation, set roleId from data
+      payload.roleId = data.roleId;
+    }
+    console.log(roleName);
+    const response = isCreate
+      ? await UserApi.createUser(roleName, payload)
+      : await UserApi.updateUserInfo(payload);
+    if (!response || !response.errorMessage) {
+      message.success(`${typeMessage} thành công`);
+      onSuccess();
+    } else {
+      message.error(`${typeMessage} thất bại. ${response.errorMessage}`);
+    }
+    setLoading(false);
+    !response.errorMessage && onCancel();
+  };
+
+  return (
+    <BaseModal
+      open={open}
+      onCancel={onCancel}
+      title={`${typeMessage} tài khoản`}
+      confirmLoading={loading}
+      onOk={() => formRef.current?.submit()}
+    >
+      <Form
+        layout="vertical"
+        ref={formRef}
+        initialValues={{
+          ...data,
+          dob: data?.dob ? dayjs(data.dob) : null,
+          phoneNumber: data?.phoneNumber || data?.userName,
+        }}
+        onFinish={handleSubmit}
+      >
+        {isCreate ? (
+          <>
+            <Form.Item
+              name="password"
+              label="Mật Khẩu"
+              rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
+            >
+              <Input.Password
+                placeholder="Nhập mật khẩu..."
+                iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+              />
+            </Form.Item>
+            <Form.Item
+              name="roleId"
+              label="Vai trò"
+              rules={[{ required: true, message: "Vui lòng chọn vai trò" }]}
+            >
+              <Select
+                showSearch
+                options={roleOptions}
+                placeholder="Chọn vai trò..."
+                onChange={(val) => {
+                  console.log(roleOptions.find((role) => role.value === val).key);
+                  formRef.current.roleId = val;
+                  setRoleName(roleOptions.find((role) => role.value === val).key);
+                }}
+              />
+            </Form.Item>
+          </>
+        ) : (
+          <>
+            <Form.Item name="id" hidden>
+              <Input />
+            </Form.Item>
+            <Form.Item name="userName" hidden>
+              <Input />
+            </Form.Item>
+            <Form.Item name="roleId" hidden>
+              <Input />
+            </Form.Item>
+          </>
+        )}
+        <Form.Item
+          name="phoneNumber"
+          label="Số điện thoại"
+          rules={[
+            { required: true, message: "Vui lòng nhập số điện thoại" },
+            {
+              pattern: /^0[0-9]{9}$/, // Starts with 0 and has 9 to 11 more digits
+              message: "Số điện thoại gồm 10 chữ số, bắt đầu từ số 0",
+            },
+          ]}
+        >
+          <Input type="number" placeholder="Nhập số điện thoại..." />
+        </Form.Item>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[{ required: true, message: "Vui lòng nhập email" }]}
+        >
+          <Input disabled={!isCreate} placeholder="Nhập email..." />
+        </Form.Item>
+        <Form.Item
+          name="fullName"
+          label="Họ tên"
+          rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
+        >
+          <Input placeholder="Nhập họ tên..." />
+        </Form.Item>
+        <Form.Item
+          name="address"
+          label="Địa chỉ"
+          rules={[{ required: true, message: "Vui lòng nhập địa chỉ" }]}
+        >
+          <Input placeholder="Nhập địa chỉ..." />
+        </Form.Item>
+        <Form.Item name="dob" label="Ngày sinh">
+          <DatePicker
+            className="w-full"
+            placeholder="Chọn ngày sinh..."
+            format="DD/MM/YYYY"
+            showTime={false}
+          />
+        </Form.Item>
+        <Form.Item name="gender" label="Giới tính">
+          <Select
+            placeholder="Giới tính..."
+            onChange={(e) => setGender(e)}
+            options={[
+              { label: "Nam", value: 0 },
+              { label: "Nữ", value: 1 },
+              { label: "Khác", value: 2 },
+            ]}
+          />
+        </Form.Item>
+      </Form>
+    </BaseModal>
+  );
 };

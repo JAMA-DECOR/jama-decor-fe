@@ -7,18 +7,19 @@ export const BaseTable = ({
 	columns,
 	title,
 	dataSource,
+	expandable,
 	searchOptions = {
 		visible: true,
 		placeholder: "Tìm kiếm...",
 		width: undefined,
-		onSearch: () => {},
+		onSearch: () => { },
 	},
 	pagination,
 	actions,
 	loading,
-	reload,
-	expandedRowRender,
 	rowKey,
+	reload,
+	addButton,
 }) => {
 	const all = useRef();
 
@@ -71,11 +72,11 @@ export const BaseTable = ({
 											options
 												? options
 												: values.map((v) => {
-														return {
-															label: v,
-															value: v,
-														};
-												  })
+													return {
+														label: v,
+														value: v,
+													};
+												})
 										}
 										onChange={(value) => {
 											if (!value) {
@@ -106,6 +107,9 @@ export const BaseTable = ({
 				<Col span={12}>
 					<Row gutter={8} justify="end">
 						<Col>
+							{addButton}
+						</Col>
+						<Col>
 							{visible && (
 								<Input.Search
 									className="mb-4"
@@ -121,7 +125,7 @@ export const BaseTable = ({
 			</Row>
 			<Table
 				rowKey={rowKey}
-				pagination={pagination}
+				pagination={pagination == false ? false : { ...pagination, showSizeChanger: false }}
 				dataSource={list}
 				columns={columns}
 				loading={loading}
@@ -130,9 +134,7 @@ export const BaseTable = ({
 						<Empty description={<Text disabled>Chưa có dữ liệu</Text>} />
 					),
 				}}
-				expandable={{
-					expandedRowRender: expandedRowRender,
-				}}
+				expandable={expandable}
 			/>
 		</div>
 	);

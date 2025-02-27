@@ -1,4 +1,4 @@
-import { Layout, Space, Spin, Typography } from "antd";
+import { Layout, Space, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { AppSider } from "./Sider";
 import { AppHeader } from "./Header";
@@ -9,82 +9,88 @@ import animationData from "../../assets/lotties/home-animation";
 import AuthApi from "../../apis/auth";
 import { UserContext } from "../../providers/user";
 import { getRoleName } from "../../utils";
-import { roles } from "../../constants/app";
+import { logoUrlBig, roles } from "../../constants/app";
 const { Content } = Layout;
 const { Title } = Typography;
 
 export const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
 
   useEffect(() => {
-    setLoading(true);
     AuthApi.authorize()
       .then((user) => {
         if (!user) {
+          localStorage.removeItem("jwt");
+          localStorage.removeItem("user");
+          localStorage.removeItem("userRole");
           navigate(routes.login);
           return;
-        } else {
-          document.title = `${getRoleName(user.role.name)} | Dashboard`;
-          setUser(user);
-          var path = routes.dashboard.home;
-
-          if (user.role.name === roles.WORKER) {
+        }
+        document.title = `${getRoleName(user.role?.name)} | Dashboard`;
+        setUser(user);
+        var path = routes.dashboard.home;
+        console.log(user.role);
+        if (!location) {
+          if (user.role?.name === roles.LEADER) {
+            path = routes.dashboard.workersTasks;
+          }
+          else if (user.role?.name === roles.WORKER) {
             path = routes.dashboard.tasks;
           }
-          navigate(path);
+        } else {
+          path = location;
         }
+        navigate(path);
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <UserContext.Provider value={{ user: user, setUser: setUser }}>
-      <Spin spinning={loading} style={{ minHeight: "100vh !important" }}>
-        <Layout hasSider>
-          <AppSider />
+      <Layout hasSider>
+        <AppSider />
+        <Layout>
+          <AppHeader />
           <Layout>
-            <AppHeader />
-            <Layout>
-              <Content
-                style={{
-                  padding: 16,
-                  paddingRight: 32,
-                  overflow: "initial",
-                  backgroundColor: "white",
-                }}
-              >
-                {location.pathname === routes.dashboard.root && (
-                  <div className="w-full h-[60vh] flex-center" style={{ flexDirection: "column" }}>
-                    <Lottie
-                      width="30%"
-                      options={{
-                        animationData: animationData,
-                        autoplay: true,
-                        loop: true,
-                        rendererSettings: {
-                          preserveAspectRatio: "xMidYMid slice",
-                        },
-                      }}
-                    />
-                    <Title level={4}>Coming Soon</Title>
+            <Content
+              style={{
+                padding: 16,
+                paddingRight: 32,
+                overflow: "initial",
+                backgroundColor: "white",
+              }}
+            >
+              {location.pathname === routes.dashboard.root && (
+                <div className="w-full h-[60vh] flex-center" style={{ flexDirection: "column" }}>
+                  {/* <Title level={3}>JAMA Decor</Title> */}
+                  {/* <Lottie
+                    width="30%"
+                    options={{
+                      animationData: animationData,
+                      autoplay: true,
+                      loop: true,
+                      rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice",
+                      },
+                    }}
+                  />
+                  <Title level={4}>Coming Soon</Title> */}
+                  <div className="bg-white flex-center p-10 circle">
+                    <img src={logoUrlBig} width={360} />
                   </div>
-                )}
-                <Outlet />
-              </Content>
-              {/* <ActivitySider /> */}
-            </Layout>
+                </div>
+              )}
+              <Outlet />
+            </Content>
+            {/* <ActivitySider /> */}
           </Layout>
         </Layout>
-      </Spin>
+      </Layout>
     </UserContext.Provider>
   );
 };

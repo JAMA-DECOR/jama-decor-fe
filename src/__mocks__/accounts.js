@@ -20,7 +20,7 @@ export const mockAccounts = [
 		email: "factory@gmail.com",
 		username: "factory01",
 		password: '123456',
-		role: roles.FACTORY,
+		role: roles.FOREMAN,
 		birthday: '20/10/1986',
 		address: 'Toà nhà S, đường số 4, khu 1, quận 9, thành phố Hồ Chí Minh',
 		phone: '0975790200',

@@ -33,13 +33,13 @@ export const LoginPage = () => {
     navigate(routes.register);
   };
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (phone, password) => {
     setLoading(true);
-    const success = await AuthApi.login(email, password);
+    const success = await AuthApi.login(phone, password);
     setLoading(false);
     if (success) {
       message.success(`Đăng nhập thành công!`);
-      navigate(routes.dashboard.root);
+      navigate(routes.root);
     } else {
       message.error("Sai tài khoản hoặc mật khẩu. Vui lòng nhập lại.");
     }
@@ -80,21 +80,21 @@ export const LoginPage = () => {
                 layout="vertical"
                 onFinish={async (values) => {
                   console.log("data: ", values);
-                  const { email, password } = values;
-                  await handleLogin(email, password);
+                  const { phone, password } = values;
+                  await handleLogin(phone, password);
                 }}
               >
                 <Form.Item
-                  name="email"
+                  name="phone"
                   labelAlign="right"
                   rules={[
                     {
                       required: true,
-                      message: "Vui lòng nhập địa chỉ email",
+                      message: "Vui lòng nhập số điện thoại",
                     },
                   ]}
                 >
-                  <Input placeholder="Nhập email của bạn..." size="large" />
+                  <Input placeholder="Nhập số điện thoại của bạn..." size="large" />
                 </Form.Item>
                 <Form.Item
                   name="password"

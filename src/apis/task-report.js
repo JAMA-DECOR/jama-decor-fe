@@ -1,15 +1,44 @@
+import { message } from "antd";
 import BaseApi from ".";
+import ApiCodes from "../constants/apiCode";
 
 const resource = "TaskReport";
 
+const retrieveDataSuccessCode = 300;
+const createSuccessCode = 302;
+const updateSuccessCode = 303;
+const deleteSuccessCode = 304;
+const updateStatusSuccessCode = 305;
+
+const errorComposer = (error) => {
+  if (error?.response?.data) {
+    const { code } = error?.response?.data
+    return {
+      code,
+      message: ApiCodes[code],
+    }
+  }
+  return {
+    code: -1,
+    message: "Có lỗi xảy ra",
+  };
+}
+
+const successComposer = (messageId, data) => {
+  return {
+    code: 0,
+    message: ApiCodes[messageId],
+    data: data?.data || data,
+  }
+}
+
 // not implement
-const getAllReport = async (search, pageIndex, pageSize) => {
+const getReportByLeaderId = async (search, pageIndex, pageSize) => {
   try {
     if (search) {
       return await searchReport(search, pageIndex, pageSize);
     }
     else {
-
       var params = {};
       if (pageIndex) {
         params = { ...params, pageIndex };
@@ -17,7 +46,7 @@ const getAllReport = async (search, pageIndex, pageSize) => {
       if (pageSize) {
         params = { ...params, pageSize };
       }
-      const response = await BaseApi.get(`/${resource}/GetAllReport`, {
+      const response = await BaseApi.get(`/${resource}/GetReportByLeaderId`, {
         params: params,
       });
       return response.data;
@@ -40,7 +69,7 @@ const searchReport = async (search, pageIndex, pageSize) => {
       params = { ...params, pageSize };
     }
 
-    const response = await BaseApi.post(`/${resource}/SearchReport`, {
+    const response = await BaseApi.get(`/${resource}/GetReportByLeaderId`, {
       params: params,
     });
 
@@ -50,53 +79,65 @@ const searchReport = async (search, pageIndex, pageSize) => {
     return [];
   }
 };
-// -----
 
-const sendReport = async (data) => {
+const getById = async (id) => {
   try {
-    // {
-    //   "managerTaskId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //   "reportType": 0,
-    //   "title": "string",
-    //   "content": "string",
-    //   "reportStatus": 0,
-    //   "resource": [
-    //     "string"
-    //   ],
-    //   "createdDate": "2023-10-20T02:32:58.604Z"
-    // }
-    const response = await BaseApi.post(`/${resource}/SendReport`, data);
-
-    return response.data;
-  } catch (error) {
-    console.log("Error search item: ", error);
-    return [];
-  }
-};
-
-const getReportByReportId = async (id) => {
-  try {
-    const response = await BaseApi.get(`/${resource}/GetReportByReportId/${id}`);
+    const response = await BaseApi.get(`/${resource}/GetById/${id}`);
     return response.data;
   } catch (error) {
     console.log("Error get item by id: ", error);
-    return undefined;
   }
 };
 
-const responseReport = async (data) => {
+const updateReport = async (data) => {
   try {
-    const response = await BaseApi.put(`/${resource}/UpdateReport`, data);
+    const response = await BaseApi.put(`/${resource}/Update`, data);
     return response.status === 200;
   } catch (error) {
     console.log("Error update item: ", error);
     return false;
   }
 };
+const sendProgressReportFeedback = async (data) => {
+  try {
+    const response = await BaseApi.put(`/${resource}/SendProgressReportFeedback`, data);
+    return response.status === 200;
+  } catch (error) {
+    console.log("Error update item: ", error);
+    return false;
+  }
+};
+const sendProblemReportFeedback = async (data) => {
+  try {
+    const response = await BaseApi.put(`/${resource}/SendProblemReportFeedback`, data);
+    return response.status === 200;
+  } catch (error) {
+    console.log("Error update item: ", error);
+    return false;
+  }
+};
+const updateProblemTaskReport = async (data) => {
+  try {
+    const response = await BaseApi.put(`/${resource}/UpdateProblemTaskReport`, data);
+    return response.status === 200;
+  } catch (error) {
+    console.log("Error update item: ", error);
+    return false;
+  }
+};
+const updateStatusReport = async (id, status) => {
+  try {
+    const response = await BaseApi.put(`/${resource}/UpdateStatusReport/${id}/${status}`);
+    return response.status === 200;
+  } catch (error) {
+    console.log("Error UpdateStatusReport: ", error);
+    return false;
+  }
+};
 
 const getProgressReportsByManagerId = async (id) => {
   try {
-    const response = await BaseApi.get(`/${resource}/GetProgressReportsByManagerId/${id}`);
+    const response = await BaseApi.get(`/${resource}/GetProgressReportsByLeaderTaskId/${id}`);
     return response.data;
   } catch (error) {
     console.log("Error get item by id: ", error);
@@ -106,7 +147,7 @@ const getProgressReportsByManagerId = async (id) => {
 
 const getProblemReportsByManagerId = async (id) => {
   try {
-    const response = await BaseApi.get(`/${resource}/GetProblemReportsByManagerId/${id}`);
+    const response = await BaseApi.get(`/${resource}/GetProblemReportsByLeaderTaskId/${id}`);
     return response.data;
   } catch (error) {
     console.log("Error get item by id: ", error);
@@ -114,14 +155,118 @@ const getProblemReportsByManagerId = async (id) => {
   }
 };
 
+const createProgressReport = async (data) => {
+  try {
+    const response = await BaseApi.post(`/${resource}/CreateProgressReport`, data);
+    return successComposer(response);
+  } catch (error) {
+    console.log("Error send progress report: ", error);
+    return errorComposer(error);;
+  }
+};
+
+const sendAcceptanceReport = async (data) => {
+  try {
+    const response = await BaseApi.post(`/${resource}/CreateAcceptanceReport`, data);
+    return successComposer(response);
+  } catch (error) {
+    console.log("Error send acceptance report: ", error);
+    return errorComposer(error);;
+  }
+};
+
+const sendProblemReport = async (data) => {
+  try {
+    const response = await BaseApi.post(`/${resource}/CreateProblemReport`, data);
+    return successComposer(response);
+  } catch (error) {
+    console.log("Error send problem report: ", error);
+    return errorComposer(error);;
+  }
+};
+
+const getReportByLeaderIdAndLeaderTaskId = async (leaderTaskId, pageIndex, pageSize) => {
+  try {
+    var params = {};
+    if (pageIndex) {
+      params = { ...params, pageIndex };
+    }
+    if (pageSize) {
+      params = { ...params, pageSize };
+    }
+    const response = await BaseApi.get(`/${resource}/GetReportByLeaderIdAndLeaderTaskId?leaderTaskId=${leaderTaskId}`, {
+      params: params,
+    });
+    return response.data;
+
+  } catch (error) {
+    console.log("Error get items: ", error);
+    return false;
+  }
+};
+
+const getReportByForemanId = async (search, pageIndex, pageSize) => {
+	try {
+		if (search) {
+			return await searchGetReportByForemanId(search, pageIndex, pageSize);
+		}
+		else {
+			var params = {};
+			if (pageIndex) {
+				params = { ...params, pageIndex };
+			}
+			if (pageSize) {
+				params = { ...params, pageSize };
+			}
+			const response = await BaseApi.get(`/${resource}/GetReportByForemanId`, {
+				params: params,
+			});
+			return response.data;
+		}
+	} catch (error) {
+		console.log("Error enroll group: ", error);
+		return errorComposer(error);
+	}
+};
+
+const searchGetReportByForemanId = async (search, pageIndex, pageSize) => {
+	try {
+		var params = {};
+		if (search) {
+			params = { ...params, search };
+		}
+		if (pageIndex) {
+			params = { ...params, pageIndex };
+		}
+		if (pageSize) {
+			params = { ...params, pageSize };
+		}
+		const response = await BaseApi.get(`/${resource}/GetReportByForemanId`, {
+			params: params,
+		});
+		return response.data;
+	} catch (error) {
+		console.log("Error get group: ", error);
+		return errorComposer(error);
+	}
+};
+
 const ReportApi = {
-  getAllReport,
+  getReportByLeaderId,
   searchReport,
-  sendReport,
-  getReportByReportId,
-  responseReport,
+  getById,
+  updateReport,
   getProgressReportsByManagerId,
-  getProblemReportsByManagerId
+  getProblemReportsByManagerId,
+  sendAcceptanceReport,
+  sendProblemReport,
+  createProgressReport,
+  sendProgressReportFeedback,
+  sendProblemReportFeedback,
+  updateProblemTaskReport,
+  getReportByLeaderIdAndLeaderTaskId,
+  getReportByForemanId,
+  updateStatusReport,
 };
 
 export default ReportApi;

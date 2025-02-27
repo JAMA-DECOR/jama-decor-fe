@@ -9,15 +9,18 @@ const login = async (username, password) => {
 		// 	localStorage.setItem("user", JSON.stringify(user));
 		// 	return true
 		// }
+
 		const response = await BaseApi.post("/User/Login", {
 			phoneNumber: username,
 			password: password,
 		});
 		if (response.status === 200) {
 			const jwt = response.data.result["access_token"];
-			const userId = response.data.result["userID"];
+			const userId = response.data.result["userId"];
+			const role = response.data.result["role"];
 			localStorage.setItem("jwt", jwt);
 			localStorage.setItem("userId", userId);
+			localStorage.setItem("userRole", JSON.stringify(role));
 			return true;
 		}
 		return false
@@ -29,8 +32,8 @@ const login = async (username, password) => {
 
 const authorize = async () => {
 	try {
-		const userId = localStorage.getItem("userId");
-		const response = await BaseApi.get("/User/GetById/" + userId);
+		const id = localStorage.getItem("userId");
+		const response = await BaseApi.get("/User/GetById/" + id);
 		return response.data;
 		// const user = JSON.parse(localStorage.getItem("user")) || {};
 		// return user

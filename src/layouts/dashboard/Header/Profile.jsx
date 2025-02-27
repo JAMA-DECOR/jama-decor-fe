@@ -1,13 +1,11 @@
 import { Down, Logout, User } from "@icon-park/react";
-import { BellFilled, BellOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Badge, Dropdown, Space } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, Image, Space } from "antd";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../providers/user";
 import routes from "../../../constants/routes";
-import { roles } from "../../../constants/app";
 import styled from "styled-components";
-import SignalR from "../../../middleware/signalr";
 
 const Container = styled.div`
   color: white;
@@ -15,8 +13,9 @@ const Container = styled.div`
 
 export const ProfileBar = () => {
   const navigate = useNavigate();
+
   const { user, setUser } = useContext(UserContext);
-  const [notificationsCount, setCount] = useState(0);
+  // console.log(user);
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
@@ -40,32 +39,20 @@ export const ProfileBar = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   SignalR.initialize();
-  //   console.log(SignalR.connection);
-  // });
-
   return (
     <Container theme="light">
       <Space size={24} style={{ margin: "0 0.5rem" }}>
-        {notificationsCount > 0 ? (
-          <Badge count={notificationsCount}>
-            <BellFilled className="text-[#666] text-2xl relative top-1" />
-          </Badge>
-        ) : (
-          <BellOutlined className="text-[#666] text-2xl relative top-1" />
-        )}
-
-        <Avatar size="default" icon={<UserOutlined />} />
+        {/* <Avatar size="default" icon={<UserOutlined />} /> */}
+        <img width={30} height={30} src={user?.image} />
       </Space>
       <Dropdown
         menu={{
           items,
         }}
       >
-        <span className="cursor-pointer text-[#666] font-semibold">
+        <span className="cursor-pointer text-[#666] font-semibold" style={{ marginRight: "0px" }}>
           {user?.fullName}
-          <Down className="ml-1 absolute top-[0.2rem] bottom-0" />
+          <Down className="ml-1  top-[0.2rem] bottom-0" />
         </span>
       </Dropdown>
     </Container>
